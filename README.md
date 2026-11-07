@@ -14,6 +14,9 @@ npm test                                        # differential corpus vs oracle
 
 Exit code: `0` clean · `1` errors found · `2` usage/IO error.
 
+Options: `--remote` · `--json` · `--stdin` · `--engine=npm,oracle-params,pinets`
+· `--quiet` — details via `--help`.
+
 ## What it catches
 
 Three engines run on every file and their findings are merged:
