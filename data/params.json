@@ -1,0 +1,3173 @@
+{
+ "alert": {
+  "params": {
+   "message": "ok",
+   "freq": "ok"
+  }
+ },
+ "alertcondition": {
+  "params": {
+   "condition": "ok",
+   "title": "ok",
+   "message": "ok"
+  }
+ },
+ "array.abs": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "array.avg": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "array.binary_search": {
+  "params": {
+   "id": "ok",
+   "val": "ok"
+  }
+ },
+ "array.binary_search_leftmost": {
+  "params": {
+   "id": "ok",
+   "val": "ok"
+  }
+ },
+ "array.binary_search_rightmost": {
+  "params": {
+   "id": "ok",
+   "val": "ok"
+  }
+ },
+ "array.clear": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "array.concat": {
+  "params": {
+   "id1": "ok",
+   "id2": "unverified"
+  }
+ },
+ "array.copy": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "array.covariance": {
+  "params": {
+   "id1": "ok",
+   "id2": "ok",
+   "biased": "ok"
+  }
+ },
+ "array.every": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "array.fill": {
+  "params": {
+   "id": "ok",
+   "value": "unverified",
+   "index_from": "unverified",
+   "index_to": "unverified"
+  }
+ },
+ "array.first": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "array.from": {
+  "params": {
+   "arg0": "varargs"
+  },
+  "varargs": true
+ },
+ "array.get": {
+  "params": {
+   "id": "ok",
+   "index": "ok"
+  }
+ },
+ "array.includes": {
+  "params": {
+   "id": "ok",
+   "value": "ok"
+  }
+ },
+ "array.indexof": {
+  "params": {
+   "id": "ok",
+   "value": "ok"
+  }
+ },
+ "array.insert": {
+  "params": {
+   "id": "ok",
+   "index": "unverified",
+   "value": "unverified"
+  }
+ },
+ "array.join": {
+  "params": {
+   "id": "ok",
+   "separator": "ok"
+  }
+ },
+ "array.last": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "array.lastindexof": {
+  "params": {
+   "id": "ok",
+   "value": "ok"
+  }
+ },
+ "array.max": {
+  "params": {
+   "id": "ok",
+   "nth": "ok"
+  }
+ },
+ "array.median": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "array.min": {
+  "params": {
+   "id": "ok",
+   "nth": "ok"
+  }
+ },
+ "array.mode": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "array.new_bool": {
+  "params": {
+   "size": "ok",
+   "initial_value": "ok"
+  }
+ },
+ "array.new_box": {
+  "params": {
+   "size": "ok",
+   "initial_value": "ok"
+  }
+ },
+ "array.new_color": {
+  "params": {
+   "size": "ok",
+   "initial_value": "ok"
+  }
+ },
+ "array.new_float": {
+  "params": {
+   "size": "ok",
+   "initial_value": "ok"
+  }
+ },
+ "array.new_int": {
+  "params": {
+   "size": "ok",
+   "initial_value": "ok"
+  }
+ },
+ "array.new_label": {
+  "params": {
+   "size": "ok",
+   "initial_value": "ok"
+  }
+ },
+ "array.new_line": {
+  "params": {
+   "size": "ok",
+   "initial_value": "ok"
+  }
+ },
+ "array.new_linefill": {
+  "params": {
+   "size": "ok",
+   "initial_value": "ok"
+  }
+ },
+ "array.new_string": {
+  "params": {
+   "size": "ok",
+   "initial_value": "ok"
+  }
+ },
+ "array.new_table": {
+  "params": {
+   "size": "ok",
+   "initial_value": "ok"
+  }
+ },
+ "array.new<type>": {
+  "params": {
+   "size": "ok",
+   "initial_value": "ok"
+  }
+ },
+ "array.percentile_linear_interpolation": {
+  "params": {
+   "id": "ok",
+   "percentage": "ok"
+  }
+ },
+ "array.percentile_nearest_rank": {
+  "params": {
+   "id": "ok",
+   "percentage": "ok"
+  }
+ },
+ "array.percentrank": {
+  "params": {
+   "id": "ok",
+   "index": "ok"
+  }
+ },
+ "array.pop": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "array.push": {
+  "params": {
+   "id": "ok",
+   "value": "unverified"
+  }
+ },
+ "array.range": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "array.remove": {
+  "params": {
+   "id": "ok",
+   "index": "unverified"
+  }
+ },
+ "array.reverse": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "array.set": {
+  "params": {
+   "id": "ok",
+   "index": "unverified",
+   "value": "unverified"
+  }
+ },
+ "array.shift": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "array.size": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "array.slice": {
+  "params": {
+   "id": "ok",
+   "index_from": "unverified",
+   "index_to": "unverified"
+  }
+ },
+ "array.some": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "array.sort": {
+  "params": {
+   "id": "ok",
+   "order": "unverified",
+   "sort_field": "unverified"
+  }
+ },
+ "array.sort_indices": {
+  "params": {
+   "id": "ok",
+   "order": "ok",
+   "sort_field": "ok"
+  }
+ },
+ "array.standardize": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "array.stdev": {
+  "params": {
+   "id": "ok",
+   "biased": "ok"
+  }
+ },
+ "array.sum": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "array.unshift": {
+  "params": {
+   "id": "ok",
+   "value": "unverified"
+  }
+ },
+ "array.variance": {
+  "params": {
+   "id": "ok",
+   "biased": "ok"
+  }
+ },
+ "barcolor": {
+  "params": {
+   "color": "ok",
+   "offset": "ok",
+   "editable": "ok",
+   "show_last": "ok",
+   "title": "ok",
+   "display": "ok"
+  }
+ },
+ "bgcolor": {
+  "params": {
+   "color": "ok",
+   "offset": "ok",
+   "editable": "ok",
+   "show_last": "ok",
+   "title": "ok",
+   "display": "ok",
+   "force_overlay": "ok"
+  }
+ },
+ "bool": {
+  "params": {
+   "x": "ok"
+  }
+ },
+ "box": {
+  "params": {
+   "x": "ok"
+  }
+ },
+ "box.copy": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "box.delete": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "box.get_bottom": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "box.get_left": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "box.get_right": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "box.get_top": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "box.new": {
+  "params": {
+   "top_left": "ok",
+   "bottom_right": "ok",
+   "left": "rejected",
+   "top": "rejected",
+   "right": "rejected",
+   "bottom": "rejected",
+   "border_color": "ok",
+   "border_width": "ok",
+   "border_style": "ok",
+   "extend": "ok",
+   "xloc": "ok",
+   "bgcolor": "ok",
+   "text": "ok",
+   "text_size": "ok",
+   "text_color": "ok",
+   "text_halign": "ok",
+   "text_valign": "ok",
+   "text_wrap": "ok",
+   "text_font_family": "ok",
+   "force_overlay": "ok",
+   "text_formatting": "ok"
+  }
+ },
+ "box.set_bgcolor": {
+  "params": {
+   "id": "ok",
+   "color": "ok"
+  }
+ },
+ "box.set_border_color": {
+  "params": {
+   "id": "ok",
+   "color": "ok"
+  }
+ },
+ "box.set_border_style": {
+  "params": {
+   "id": "ok",
+   "style": "ok"
+  }
+ },
+ "box.set_border_width": {
+  "params": {
+   "id": "ok",
+   "width": "ok"
+  }
+ },
+ "box.set_bottom": {
+  "params": {
+   "id": "ok",
+   "bottom": "ok"
+  }
+ },
+ "box.set_bottom_right_point": {
+  "params": {
+   "id": "ok",
+   "point": "ok"
+  }
+ },
+ "box.set_extend": {
+  "params": {
+   "id": "ok",
+   "extend": "ok"
+  }
+ },
+ "box.set_left": {
+  "params": {
+   "id": "ok",
+   "left": "ok"
+  }
+ },
+ "box.set_lefttop": {
+  "params": {
+   "id": "ok",
+   "left": "ok",
+   "top": "ok"
+  }
+ },
+ "box.set_right": {
+  "params": {
+   "id": "ok",
+   "right": "ok"
+  }
+ },
+ "box.set_rightbottom": {
+  "params": {
+   "id": "ok",
+   "right": "ok",
+   "bottom": "ok"
+  }
+ },
+ "box.set_text": {
+  "params": {
+   "id": "ok",
+   "text": "ok"
+  }
+ },
+ "box.set_text_color": {
+  "params": {
+   "id": "ok",
+   "text_color": "ok"
+  }
+ },
+ "box.set_text_font_family": {
+  "params": {
+   "id": "ok",
+   "text_font_family": "ok"
+  }
+ },
+ "box.set_text_formatting": {
+  "params": {
+   "id": "ok",
+   "text_formatting": "ok"
+  }
+ },
+ "box.set_text_halign": {
+  "params": {
+   "id": "ok",
+   "text_halign": "ok"
+  }
+ },
+ "box.set_text_size": {
+  "params": {
+   "id": "ok",
+   "text_size": "ok"
+  }
+ },
+ "box.set_text_valign": {
+  "params": {
+   "id": "ok",
+   "text_valign": "ok"
+  }
+ },
+ "box.set_text_wrap": {
+  "params": {
+   "id": "ok",
+   "text_wrap": "ok"
+  }
+ },
+ "box.set_top": {
+  "params": {
+   "id": "ok",
+   "top": "ok"
+  }
+ },
+ "box.set_top_left_point": {
+  "params": {
+   "id": "ok",
+   "point": "ok"
+  }
+ },
+ "box.set_xloc": {
+  "params": {
+   "id": "ok",
+   "left": "ok",
+   "right": "ok",
+   "xloc": "ok"
+  }
+ },
+ "chart.point.copy": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "chart.point.from_index": {
+  "params": {
+   "index": "ok",
+   "price": "ok"
+  }
+ },
+ "chart.point.from_time": {
+  "params": {
+   "time": "ok",
+   "price": "ok"
+  }
+ },
+ "chart.point.new": {
+  "params": {
+   "time": "ok",
+   "index": "ok",
+   "price": "ok"
+  }
+ },
+ "chart.point.now": {
+  "params": {
+   "price": "ok"
+  }
+ },
+ "color": {
+  "params": {
+   "x": "ok"
+  }
+ },
+ "color.b": {
+  "params": {
+   "color": "ok"
+  }
+ },
+ "color.from_gradient": {
+  "params": {
+   "value": "ok",
+   "bottom_value": "ok",
+   "top_value": "ok",
+   "bottom_color": "ok",
+   "top_color": "ok"
+  }
+ },
+ "color.g": {
+  "params": {
+   "color": "ok"
+  }
+ },
+ "color.new": {
+  "params": {
+   "color": "ok",
+   "transp": "ok"
+  }
+ },
+ "color.r": {
+  "params": {
+   "color": "ok"
+  }
+ },
+ "color.rgb": {
+  "params": {
+   "red": "ok",
+   "green": "ok",
+   "blue": "ok",
+   "transp": "ok"
+  }
+ },
+ "color.t": {
+  "params": {
+   "color": "ok"
+  }
+ },
+ "dayofmonth": {
+  "params": {
+   "time": "ok",
+   "timezone": "ok"
+  }
+ },
+ "dayofweek": {
+  "params": {
+   "time": "ok",
+   "timezone": "ok"
+  }
+ },
+ "fill": {
+  "params": {
+   "plot1": "ok",
+   "plot2": "ok",
+   "color": "ok",
+   "title": "ok",
+   "editable": "ok",
+   "show_last": "ok",
+   "fillgaps": "ok",
+   "display": "ok",
+   "hline1": "ok",
+   "hline2": "ok",
+   "top_value": "ok",
+   "bottom_value": "ok",
+   "top_color": "ok",
+   "bottom_color": "ok"
+  }
+ },
+ "fixnan": {
+  "params": {
+   "source": "ok"
+  }
+ },
+ "float": {
+  "params": {
+   "x": "ok"
+  }
+ },
+ "footprint.buy_volume": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "footprint.delta": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "footprint.get_row_by_price": {
+  "params": {
+   "id": "ok",
+   "price": "ok"
+  }
+ },
+ "footprint.poc": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "footprint.rows": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "footprint.sell_volume": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "footprint.total_volume": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "footprint.vah": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "footprint.val": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "hline": {
+  "params": {
+   "price": "ok",
+   "title": "ok",
+   "color": "ok",
+   "linestyle": "ok",
+   "linewidth": "ok",
+   "editable": "ok",
+   "display": "ok"
+  }
+ },
+ "hour": {
+  "params": {
+   "time": "ok",
+   "timezone": "ok"
+  }
+ },
+ "indicator": {
+  "params": {
+   "title": "ok",
+   "shorttitle": "ok",
+   "overlay": "ok",
+   "format": "ok",
+   "precision": "ok",
+   "scale": "ok",
+   "max_bars_back": "ok",
+   "timeframe": "ok",
+   "timeframe_gaps": "ok",
+   "explicit_plot_zorder": "ok",
+   "max_lines_count": "ok",
+   "max_labels_count": "ok",
+   "max_boxes_count": "ok",
+   "calc_bars_count": "ok",
+   "max_polylines_count": "ok",
+   "dynamic_requests": "ok",
+   "behind_chart": "ok"
+  }
+ },
+ "input": {
+  "params": {
+   "defval": "ok",
+   "title": "ok",
+   "tooltip": "ok",
+   "inline": "ok",
+   "group": "ok",
+   "display": "ok",
+   "active": "ok"
+  }
+ },
+ "input.bool": {
+  "params": {
+   "defval": "ok",
+   "title": "ok",
+   "tooltip": "ok",
+   "inline": "ok",
+   "group": "ok",
+   "confirm": "ok",
+   "active": "ok",
+   "display": "ok"
+  }
+ },
+ "input.color": {
+  "params": {
+   "defval": "ok",
+   "title": "ok",
+   "tooltip": "ok",
+   "inline": "ok",
+   "group": "ok",
+   "confirm": "ok",
+   "active": "ok",
+   "display": "ok"
+  }
+ },
+ "input.enum": {
+  "params": {
+   "defval": "ok",
+   "title": "ok",
+   "options": "ok",
+   "tooltip": "ok",
+   "inline": "ok",
+   "group": "ok",
+   "confirm": "ok",
+   "display": "ok",
+   "active": "ok"
+  }
+ },
+ "input.float": {
+  "params": {
+   "defval": "ok",
+   "title": "ok",
+   "minval": "ok",
+   "maxval": "ok",
+   "step": "ok",
+   "tooltip": "ok",
+   "inline": "ok",
+   "group": "ok",
+   "confirm": "ok",
+   "active": "ok",
+   "options": "ok",
+   "display": "ok"
+  }
+ },
+ "input.int": {
+  "params": {
+   "defval": "ok",
+   "title": "ok",
+   "minval": "ok",
+   "maxval": "ok",
+   "step": "ok",
+   "tooltip": "ok",
+   "inline": "ok",
+   "group": "ok",
+   "confirm": "ok",
+   "active": "ok",
+   "options": "ok",
+   "display": "ok"
+  }
+ },
+ "input.price": {
+  "params": {
+   "defval": "ok",
+   "title": "ok",
+   "tooltip": "ok",
+   "inline": "ok",
+   "group": "ok",
+   "confirm": "ok",
+   "active": "ok",
+   "display": "ok"
+  }
+ },
+ "input.session": {
+  "params": {
+   "defval": "ok",
+   "title": "ok",
+   "tooltip": "ok",
+   "inline": "ok",
+   "group": "ok",
+   "active": "ok",
+   "options": "ok",
+   "confirm": "ok",
+   "display": "ok"
+  }
+ },
+ "input.source": {
+  "params": {
+   "defval": "ok",
+   "title": "ok",
+   "tooltip": "ok",
+   "inline": "ok",
+   "group": "ok",
+   "active": "ok",
+   "display": "ok",
+   "confirm": "ok"
+  }
+ },
+ "input.string": {
+  "params": {
+   "defval": "ok",
+   "title": "ok",
+   "options": "ok",
+   "tooltip": "ok",
+   "inline": "ok",
+   "group": "ok",
+   "confirm": "ok",
+   "active": "ok",
+   "display": "ok"
+  }
+ },
+ "input.symbol": {
+  "params": {
+   "defval": "ok",
+   "title": "ok",
+   "tooltip": "ok",
+   "inline": "ok",
+   "group": "ok",
+   "active": "ok",
+   "confirm": "ok",
+   "display": "ok"
+  }
+ },
+ "input.text_area": {
+  "params": {
+   "defval": "ok",
+   "title": "ok",
+   "tooltip": "ok",
+   "group": "ok",
+   "confirm": "ok",
+   "active": "ok",
+   "display": "ok"
+  }
+ },
+ "input.time": {
+  "params": {
+   "defval": "ok",
+   "title": "ok",
+   "tooltip": "ok",
+   "inline": "ok",
+   "group": "ok",
+   "confirm": "ok",
+   "active": "ok",
+   "display": "ok"
+  }
+ },
+ "input.timeframe": {
+  "params": {
+   "defval": "ok",
+   "title": "ok",
+   "tooltip": "ok",
+   "inline": "ok",
+   "group": "ok",
+   "active": "ok",
+   "options": "ok",
+   "confirm": "ok",
+   "display": "ok"
+  }
+ },
+ "int": {
+  "params": {
+   "x": "ok"
+  }
+ },
+ "label": {
+  "params": {
+   "x": "ok"
+  }
+ },
+ "label.copy": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "label.delete": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "label.get_text": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "label.get_x": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "label.get_y": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "label.new": {
+  "params": {
+   "point": "ok",
+   "x": "ok",
+   "y": "ok",
+   "text": "ok",
+   "xloc": "ok",
+   "yloc": "ok",
+   "color": "ok",
+   "style": "ok",
+   "textcolor": "ok",
+   "size": "ok",
+   "textalign": "ok",
+   "tooltip": "ok",
+   "text_font_family": "ok",
+   "force_overlay": "ok",
+   "text_formatting": "ok"
+  }
+ },
+ "label.set_color": {
+  "params": {
+   "id": "ok",
+   "color": "ok"
+  }
+ },
+ "label.set_point": {
+  "params": {
+   "id": "ok",
+   "point": "ok"
+  }
+ },
+ "label.set_size": {
+  "params": {
+   "id": "ok",
+   "size": "ok"
+  }
+ },
+ "label.set_style": {
+  "params": {
+   "id": "ok",
+   "style": "ok"
+  }
+ },
+ "label.set_text": {
+  "params": {
+   "id": "ok",
+   "text": "ok"
+  }
+ },
+ "label.set_text_font_family": {
+  "params": {
+   "id": "ok",
+   "text_font_family": "ok"
+  }
+ },
+ "label.set_text_formatting": {
+  "params": {
+   "id": "ok",
+   "text_formatting": "ok"
+  }
+ },
+ "label.set_textalign": {
+  "params": {
+   "id": "ok",
+   "textalign": "ok"
+  }
+ },
+ "label.set_textcolor": {
+  "params": {
+   "id": "ok",
+   "textcolor": "ok"
+  }
+ },
+ "label.set_tooltip": {
+  "params": {
+   "id": "ok",
+   "tooltip": "ok"
+  }
+ },
+ "label.set_x": {
+  "params": {
+   "id": "ok",
+   "x": "ok"
+  }
+ },
+ "label.set_xloc": {
+  "params": {
+   "id": "ok",
+   "x": "ok",
+   "xloc": "ok"
+  }
+ },
+ "label.set_xy": {
+  "params": {
+   "id": "ok",
+   "x": "ok",
+   "y": "ok"
+  }
+ },
+ "label.set_y": {
+  "params": {
+   "id": "ok",
+   "y": "ok"
+  }
+ },
+ "label.set_yloc": {
+  "params": {
+   "id": "ok",
+   "yloc": "ok"
+  }
+ },
+ "library": {
+  "params": {
+   "title": "ok",
+   "overlay": "ok",
+   "dynamic_requests": "ok"
+  }
+ },
+ "line": {
+  "params": {
+   "x": "ok"
+  }
+ },
+ "line.copy": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "line.delete": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "line.get_price": {
+  "params": {
+   "id": "ok",
+   "x": "ok"
+  }
+ },
+ "line.get_x1": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "line.get_x2": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "line.get_y1": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "line.get_y2": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "line.new": {
+  "params": {
+   "first_point": "ok",
+   "second_point": "ok",
+   "x1": "rejected",
+   "y1": "rejected",
+   "x2": "rejected",
+   "y2": "rejected",
+   "xloc": "ok",
+   "extend": "ok",
+   "color": "ok",
+   "style": "ok",
+   "width": "ok",
+   "force_overlay": "ok"
+  }
+ },
+ "line.set_color": {
+  "params": {
+   "id": "ok",
+   "color": "ok"
+  }
+ },
+ "line.set_extend": {
+  "params": {
+   "id": "ok",
+   "extend": "ok"
+  }
+ },
+ "line.set_first_point": {
+  "params": {
+   "id": "ok",
+   "point": "ok"
+  }
+ },
+ "line.set_second_point": {
+  "params": {
+   "id": "ok",
+   "point": "ok"
+  }
+ },
+ "line.set_style": {
+  "params": {
+   "id": "ok",
+   "style": "ok"
+  }
+ },
+ "line.set_width": {
+  "params": {
+   "id": "ok",
+   "width": "ok"
+  }
+ },
+ "line.set_x1": {
+  "params": {
+   "id": "ok",
+   "x": "ok"
+  }
+ },
+ "line.set_x2": {
+  "params": {
+   "id": "ok",
+   "x": "ok"
+  }
+ },
+ "line.set_xloc": {
+  "params": {
+   "id": "ok",
+   "x1": "ok",
+   "x2": "ok",
+   "xloc": "ok"
+  }
+ },
+ "line.set_xy1": {
+  "params": {
+   "id": "ok",
+   "x": "ok",
+   "y": "ok"
+  }
+ },
+ "line.set_xy2": {
+  "params": {
+   "id": "ok",
+   "x": "ok",
+   "y": "ok"
+  }
+ },
+ "line.set_y1": {
+  "params": {
+   "id": "ok",
+   "y": "ok"
+  }
+ },
+ "line.set_y2": {
+  "params": {
+   "id": "ok",
+   "y": "ok"
+  }
+ },
+ "linefill": {
+  "params": {
+   "x": "ok"
+  }
+ },
+ "linefill.delete": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "linefill.get_line1": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "linefill.get_line2": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "linefill.new": {
+  "params": {
+   "line1": "ok",
+   "line2": "ok",
+   "color": "ok"
+  }
+ },
+ "linefill.set_color": {
+  "params": {
+   "id": "ok",
+   "color": "ok"
+  }
+ },
+ "log.error": {
+  "params": {
+   "message": "varargs"
+  },
+  "varargs": true
+ },
+ "log.info": {
+  "params": {
+   "message": "varargs"
+  },
+  "varargs": true
+ },
+ "log.warning": {
+  "params": {
+   "message": "varargs"
+  },
+  "varargs": true
+ },
+ "map.clear": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "map.contains": {
+  "params": {
+   "id": "ok",
+   "key": "ok"
+  }
+ },
+ "map.copy": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "map.get": {
+  "params": {
+   "id": "ok",
+   "key": "ok"
+  }
+ },
+ "map.keys": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "map.put": {
+  "params": {
+   "id": "ok",
+   "key": "unverified",
+   "value": "unverified"
+  }
+ },
+ "map.put_all": {
+  "params": {
+   "id": "unverified",
+   "id2": "unverified"
+  }
+ },
+ "map.remove": {
+  "params": {
+   "id": "ok",
+   "key": "unverified"
+  }
+ },
+ "map.size": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "map.values": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "math.abs": {
+  "params": {
+   "number": "ok"
+  }
+ },
+ "math.acos": {
+  "params": {
+   "angle": "ok"
+  }
+ },
+ "math.asin": {
+  "params": {
+   "angle": "ok"
+  }
+ },
+ "math.atan": {
+  "params": {
+   "angle": "ok"
+  }
+ },
+ "math.avg": {
+  "params": {
+   "number0": "varargs"
+  },
+  "varargs": true
+ },
+ "math.ceil": {
+  "params": {
+   "number": "ok"
+  }
+ },
+ "math.cos": {
+  "params": {
+   "angle": "ok"
+  }
+ },
+ "math.exp": {
+  "params": {
+   "number": "ok"
+  }
+ },
+ "math.floor": {
+  "params": {
+   "number": "ok"
+  }
+ },
+ "math.log": {
+  "params": {
+   "number": "ok"
+  }
+ },
+ "math.log10": {
+  "params": {
+   "number": "ok"
+  }
+ },
+ "math.max": {
+  "params": {
+   "number0": "varargs"
+  },
+  "varargs": true
+ },
+ "math.min": {
+  "params": {
+   "number0": "varargs"
+  },
+  "varargs": true
+ },
+ "math.pow": {
+  "params": {
+   "base": "ok",
+   "exponent": "ok"
+  }
+ },
+ "math.random": {
+  "params": {
+   "min": "ok",
+   "max": "ok",
+   "seed": "ok"
+  }
+ },
+ "math.round": {
+  "params": {
+   "number": "ok",
+   "precision": "ok"
+  }
+ },
+ "math.round_to_mintick": {
+  "params": {
+   "number": "ok"
+  }
+ },
+ "math.sign": {
+  "params": {
+   "number": "ok"
+  }
+ },
+ "math.sin": {
+  "params": {
+   "angle": "ok"
+  }
+ },
+ "math.sqrt": {
+  "params": {
+   "number": "ok"
+  }
+ },
+ "math.sum": {
+  "params": {
+   "source": "ok",
+   "length": "ok"
+  }
+ },
+ "math.tan": {
+  "params": {
+   "angle": "ok"
+  }
+ },
+ "math.todegrees": {
+  "params": {
+   "radians": "ok"
+  }
+ },
+ "math.toradians": {
+  "params": {
+   "degrees": "ok"
+  }
+ },
+ "matrix.add_col": {
+  "params": {
+   "id": "ok",
+   "column": "unverified",
+   "array_id": "unverified"
+  }
+ },
+ "matrix.add_row": {
+  "params": {
+   "id": "ok",
+   "row": "unverified",
+   "array_id": "unverified"
+  }
+ },
+ "matrix.avg": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "matrix.col": {
+  "params": {
+   "id": "ok",
+   "column": "ok"
+  }
+ },
+ "matrix.columns": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "matrix.concat": {
+  "params": {
+   "id1": "ok",
+   "id2": "unverified"
+  }
+ },
+ "matrix.copy": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "matrix.det": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "matrix.diff": {
+  "params": {
+   "id1": "ok",
+   "id2": "ok"
+  }
+ },
+ "matrix.eigenvalues": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "matrix.eigenvectors": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "matrix.elements_count": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "matrix.fill": {
+  "params": {
+   "id": "ok",
+   "value": "unverified",
+   "from_row": "unverified",
+   "to_row": "unverified",
+   "from_column": "unverified",
+   "to_column": "unverified"
+  }
+ },
+ "matrix.get": {
+  "params": {
+   "id": "ok",
+   "row": "ok",
+   "column": "ok"
+  }
+ },
+ "matrix.inv": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "matrix.is_antidiagonal": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "matrix.is_antisymmetric": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "matrix.is_binary": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "matrix.is_diagonal": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "matrix.is_identity": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "matrix.is_square": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "matrix.is_stochastic": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "matrix.is_symmetric": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "matrix.is_triangular": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "matrix.is_zero": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "matrix.kron": {
+  "params": {
+   "id1": "ok",
+   "id2": "ok"
+  }
+ },
+ "matrix.max": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "matrix.median": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "matrix.min": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "matrix.mode": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "matrix.mult": {
+  "params": {
+   "id1": "ok",
+   "id2": "ok"
+  }
+ },
+ "matrix.new<type>": {
+  "params": {
+   "rows": "ok",
+   "columns": "ok",
+   "initial_value": "ok"
+  }
+ },
+ "matrix.pinv": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "matrix.pow": {
+  "params": {
+   "id": "ok",
+   "power": "ok"
+  }
+ },
+ "matrix.rank": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "matrix.remove_col": {
+  "params": {
+   "id": "ok",
+   "column": "unverified"
+  }
+ },
+ "matrix.remove_row": {
+  "params": {
+   "id": "ok",
+   "row": "unverified"
+  }
+ },
+ "matrix.reshape": {
+  "params": {
+   "id": "ok",
+   "rows": "unverified",
+   "columns": "unverified"
+  }
+ },
+ "matrix.reverse": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "matrix.row": {
+  "params": {
+   "id": "ok",
+   "row": "ok"
+  }
+ },
+ "matrix.rows": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "matrix.set": {
+  "params": {
+   "id": "ok",
+   "row": "unverified",
+   "column": "unverified",
+   "value": "unverified"
+  }
+ },
+ "matrix.sort": {
+  "params": {
+   "id": "ok",
+   "column": "unverified",
+   "order": "unverified",
+   "sort_field": "unverified"
+  }
+ },
+ "matrix.submatrix": {
+  "params": {
+   "id": "ok",
+   "from_row": "ok",
+   "to_row": "ok",
+   "from_column": "ok",
+   "to_column": "ok"
+  }
+ },
+ "matrix.sum": {
+  "params": {
+   "id1": "ok",
+   "id2": "ok"
+  }
+ },
+ "matrix.swap_columns": {
+  "params": {
+   "id": "ok",
+   "column1": "unverified",
+   "column2": "unverified"
+  }
+ },
+ "matrix.swap_rows": {
+  "params": {
+   "id": "ok",
+   "row1": "unverified",
+   "row2": "unverified"
+  }
+ },
+ "matrix.trace": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "matrix.transpose": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "max_bars_back": {
+  "params": {
+   "var": "ok",
+   "num": "unverified"
+  }
+ },
+ "minute": {
+  "params": {
+   "time": "ok",
+   "timezone": "ok"
+  }
+ },
+ "month": {
+  "params": {
+   "time": "ok",
+   "timezone": "ok"
+  }
+ },
+ "na": {
+  "params": {
+   "x": "ok"
+  }
+ },
+ "nz": {
+  "params": {
+   "source": "ok",
+   "replacement": "ok"
+  }
+ },
+ "plot": {
+  "params": {
+   "series": "ok",
+   "title": "ok",
+   "color": "ok",
+   "linewidth": "ok",
+   "style": "ok",
+   "trackprice": "ok",
+   "histbase": "ok",
+   "offset": "ok",
+   "join": "ok",
+   "editable": "ok",
+   "show_last": "ok",
+   "display": "ok",
+   "format": "ok",
+   "precision": "ok",
+   "force_overlay": "ok",
+   "linestyle": "ok"
+  }
+ },
+ "plotarrow": {
+  "params": {
+   "series": "ok",
+   "title": "ok",
+   "colorup": "ok",
+   "colordown": "ok",
+   "offset": "ok",
+   "minheight": "ok",
+   "maxheight": "ok",
+   "editable": "ok",
+   "show_last": "ok",
+   "display": "ok",
+   "format": "ok",
+   "precision": "ok",
+   "force_overlay": "ok"
+  }
+ },
+ "plotbar": {
+  "params": {
+   "open": "ok",
+   "high": "ok",
+   "low": "ok",
+   "close": "ok",
+   "title": "ok",
+   "color": "ok",
+   "editable": "ok",
+   "show_last": "ok",
+   "display": "ok",
+   "format": "ok",
+   "precision": "ok",
+   "force_overlay": "ok"
+  }
+ },
+ "plotcandle": {
+  "params": {
+   "open": "ok",
+   "high": "ok",
+   "low": "ok",
+   "close": "ok",
+   "title": "ok",
+   "color": "ok",
+   "wickcolor": "ok",
+   "editable": "ok",
+   "show_last": "ok",
+   "bordercolor": "ok",
+   "display": "ok",
+   "format": "ok",
+   "precision": "ok",
+   "force_overlay": "ok"
+  }
+ },
+ "plotchar": {
+  "params": {
+   "series": "ok",
+   "title": "ok",
+   "char": "ok",
+   "location": "ok",
+   "color": "ok",
+   "offset": "ok",
+   "text": "ok",
+   "textcolor": "ok",
+   "editable": "ok",
+   "size": "ok",
+   "show_last": "ok",
+   "display": "ok",
+   "format": "ok",
+   "precision": "ok",
+   "force_overlay": "ok"
+  }
+ },
+ "plotshape": {
+  "params": {
+   "series": "ok",
+   "title": "ok",
+   "style": "ok",
+   "location": "ok",
+   "color": "ok",
+   "offset": "ok",
+   "text": "ok",
+   "textcolor": "ok",
+   "editable": "ok",
+   "size": "ok",
+   "show_last": "ok",
+   "display": "ok",
+   "format": "ok",
+   "precision": "ok",
+   "force_overlay": "ok"
+  }
+ },
+ "polyline.delete": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "polyline.new": {
+  "params": {
+   "points": "ok",
+   "curved": "ok",
+   "closed": "ok",
+   "xloc": "ok",
+   "line_color": "ok",
+   "fill_color": "ok",
+   "line_style": "ok",
+   "line_width": "ok",
+   "force_overlay": "ok"
+  }
+ },
+ "request.currency_rate": {
+  "params": {
+   "from": "ok",
+   "to": "ok",
+   "ignore_invalid_currency": "ok"
+  }
+ },
+ "request.dividends": {
+  "params": {
+   "ticker": "ok",
+   "field": "ok",
+   "gaps": "ok",
+   "lookahead": "ok",
+   "ignore_invalid_symbol": "ok",
+   "currency": "ok"
+  }
+ },
+ "request.earnings": {
+  "params": {
+   "ticker": "ok",
+   "field": "ok",
+   "gaps": "ok",
+   "lookahead": "ok",
+   "ignore_invalid_symbol": "ok",
+   "currency": "ok"
+  }
+ },
+ "request.economic": {
+  "params": {
+   "country_code": "ok",
+   "field": "ok",
+   "gaps": "ok",
+   "ignore_invalid_symbol": "ok"
+  }
+ },
+ "request.financial": {
+  "params": {
+   "symbol": "ok",
+   "financial_id": "ok",
+   "period": "ok",
+   "gaps": "ok",
+   "ignore_invalid_symbol": "ok",
+   "currency": "ok"
+  }
+ },
+ "request.footprint": {
+  "params": {
+   "ticks_per_row": "ok",
+   "va_percent": "ok",
+   "imbalance_percent": "ok"
+  }
+ },
+ "request.quandl": {
+  "params": {
+   "ticker": "ok",
+   "gaps": "ok",
+   "index": "ok",
+   "ignore_invalid_symbol": "ok"
+  }
+ },
+ "request.security": {
+  "params": {
+   "symbol": "ok",
+   "timeframe": "ok",
+   "expression": "ok",
+   "gaps": "ok",
+   "lookahead": "ok",
+   "ignore_invalid_symbol": "ok",
+   "currency": "ok",
+   "calc_bars_count": "ok"
+  }
+ },
+ "request.security_lower_tf": {
+  "params": {
+   "symbol": "ok",
+   "timeframe": "ok",
+   "expression": "ok",
+   "ignore_invalid_symbol": "ok",
+   "currency": "ok",
+   "ignore_invalid_timeframe": "ok",
+   "calc_bars_count": "ok"
+  }
+ },
+ "request.seed": {
+  "params": {
+   "source": "ok",
+   "symbol": "ok",
+   "expression": "ok",
+   "ignore_invalid_symbol": "ok",
+   "calc_bars_count": "ok"
+  }
+ },
+ "request.splits": {
+  "params": {
+   "ticker": "ok",
+   "field": "ok",
+   "gaps": "ok",
+   "lookahead": "ok",
+   "ignore_invalid_symbol": "ok"
+  }
+ },
+ "runtime.error": {
+  "params": {
+   "message": "ok"
+  }
+ },
+ "second": {
+  "params": {
+   "time": "ok",
+   "timezone": "ok"
+  }
+ },
+ "str.contains": {
+  "params": {
+   "source": "ok",
+   "str": "ok"
+  }
+ },
+ "str.endswith": {
+  "params": {
+   "source": "ok",
+   "str": "ok"
+  }
+ },
+ "str.format": {
+  "params": {
+   "formatString": "varargs"
+  },
+  "varargs": true
+ },
+ "str.format_time": {
+  "params": {
+   "time": "ok",
+   "format": "ok",
+   "timezone": "ok"
+  }
+ },
+ "str.length": {
+  "params": {
+   "string": "ok"
+  }
+ },
+ "str.lower": {
+  "params": {
+   "source": "ok"
+  }
+ },
+ "str.match": {
+  "params": {
+   "source": "ok",
+   "regex": "ok"
+  }
+ },
+ "str.pos": {
+  "params": {
+   "source": "ok",
+   "str": "ok"
+  }
+ },
+ "str.repeat": {
+  "params": {
+   "source": "ok",
+   "repeat": "ok",
+   "separator": "ok"
+  }
+ },
+ "str.replace": {
+  "params": {
+   "source": "ok",
+   "target": "ok",
+   "replacement": "ok",
+   "occurrence": "ok"
+  }
+ },
+ "str.replace_all": {
+  "params": {
+   "source": "ok",
+   "target": "ok",
+   "replacement": "ok"
+  }
+ },
+ "str.split": {
+  "params": {
+   "string": "ok",
+   "separator": "ok"
+  }
+ },
+ "str.startswith": {
+  "params": {
+   "source": "ok",
+   "str": "ok"
+  }
+ },
+ "str.substring": {
+  "params": {
+   "source": "ok",
+   "begin_pos": "ok",
+   "end_pos": "ok"
+  }
+ },
+ "str.tonumber": {
+  "params": {
+   "string": "ok"
+  }
+ },
+ "str.tostring": {
+  "params": {
+   "value": "ok",
+   "format": "ok"
+  }
+ },
+ "str.trim": {
+  "params": {
+   "source": "ok"
+  }
+ },
+ "str.upper": {
+  "params": {
+   "source": "ok"
+  }
+ },
+ "strategy": {
+  "params": {
+   "title": "ok",
+   "shorttitle": "ok",
+   "overlay": "ok",
+   "format": "ok",
+   "precision": "ok",
+   "scale": "ok",
+   "pyramiding": "ok",
+   "calc_on_order_fills": "ok",
+   "calc_on_every_tick": "ok",
+   "calc_on_every_history_tick": "ok",
+   "max_bars_back": "ok",
+   "backtest_fill_limits_assumption": "ok",
+   "default_qty_type": "ok",
+   "default_qty_value": "ok",
+   "initial_capital": "ok",
+   "currency": "ok",
+   "slippage": "ok",
+   "commission_type": "ok",
+   "commission_value": "ok",
+   "process_orders_on_close": "ok",
+   "close_entries_rule": "ok",
+   "margin_long": "ok",
+   "margin_short": "ok",
+   "explicit_plot_zorder": "ok",
+   "max_lines_count": "ok",
+   "max_labels_count": "ok",
+   "max_boxes_count": "ok",
+   "calc_bars_count": "ok",
+   "risk_free_rate": "ok",
+   "use_bar_magnifier": "ok",
+   "fill_orders_on_standard_ohlc": "ok",
+   "max_polylines_count": "ok",
+   "dynamic_requests": "ok",
+   "behind_chart": "ok"
+  }
+ },
+ "strategy.cancel": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "strategy.close": {
+  "params": {
+   "id": "ok",
+   "comment": "ok",
+   "qty": "ok",
+   "qty_percent": "ok",
+   "alert_message": "ok",
+   "immediately": "ok",
+   "disable_alert": "ok"
+  }
+ },
+ "strategy.close_all": {
+  "params": {
+   "comment": "ok",
+   "alert_message": "ok",
+   "immediately": "ok",
+   "disable_alert": "ok"
+  }
+ },
+ "strategy.closedtrades.commission": {
+  "params": {
+   "trade_num": "ok"
+  }
+ },
+ "strategy.closedtrades.entry_bar_index": {
+  "params": {
+   "trade_num": "ok"
+  }
+ },
+ "strategy.closedtrades.entry_comment": {
+  "params": {
+   "trade_num": "ok"
+  }
+ },
+ "strategy.closedtrades.entry_id": {
+  "params": {
+   "trade_num": "ok"
+  }
+ },
+ "strategy.closedtrades.entry_price": {
+  "params": {
+   "trade_num": "ok"
+  }
+ },
+ "strategy.closedtrades.entry_time": {
+  "params": {
+   "trade_num": "ok"
+  }
+ },
+ "strategy.closedtrades.exit_bar_index": {
+  "params": {
+   "trade_num": "ok"
+  }
+ },
+ "strategy.closedtrades.exit_comment": {
+  "params": {
+   "trade_num": "ok"
+  }
+ },
+ "strategy.closedtrades.exit_id": {
+  "params": {
+   "trade_num": "ok"
+  }
+ },
+ "strategy.closedtrades.exit_price": {
+  "params": {
+   "trade_num": "ok"
+  }
+ },
+ "strategy.closedtrades.exit_time": {
+  "params": {
+   "trade_num": "ok"
+  }
+ },
+ "strategy.closedtrades.max_drawdown": {
+  "params": {
+   "trade_num": "ok"
+  }
+ },
+ "strategy.closedtrades.max_drawdown_percent": {
+  "params": {
+   "trade_num": "ok"
+  }
+ },
+ "strategy.closedtrades.max_runup": {
+  "params": {
+   "trade_num": "ok"
+  }
+ },
+ "strategy.closedtrades.max_runup_percent": {
+  "params": {
+   "trade_num": "ok"
+  }
+ },
+ "strategy.closedtrades.profit": {
+  "params": {
+   "trade_num": "ok"
+  }
+ },
+ "strategy.closedtrades.profit_percent": {
+  "params": {
+   "trade_num": "ok"
+  }
+ },
+ "strategy.closedtrades.size": {
+  "params": {
+   "trade_num": "ok"
+  }
+ },
+ "strategy.convert_to_account": {
+  "params": {
+   "value": "ok"
+  }
+ },
+ "strategy.convert_to_symbol": {
+  "params": {
+   "value": "ok"
+  }
+ },
+ "strategy.default_entry_qty": {
+  "params": {
+   "fill_price": "ok"
+  }
+ },
+ "strategy.entry": {
+  "params": {
+   "id": "ok",
+   "direction": "ok",
+   "qty": "ok",
+   "limit": "ok",
+   "stop": "ok",
+   "oca_name": "ok",
+   "oca_type": "ok",
+   "comment": "ok",
+   "alert_message": "ok",
+   "disable_alert": "ok"
+  }
+ },
+ "strategy.exit": {
+  "params": {
+   "id": "ok",
+   "from_entry": "ok",
+   "qty": "ok",
+   "qty_percent": "ok",
+   "profit": "ok",
+   "limit": "ok",
+   "loss": "ok",
+   "stop": "ok",
+   "trail_price": "ok",
+   "trail_points": "ok",
+   "trail_offset": "ok",
+   "oca_name": "ok",
+   "comment": "ok",
+   "comment_profit": "ok",
+   "comment_loss": "ok",
+   "comment_trailing": "ok",
+   "alert_message": "ok",
+   "alert_profit": "ok",
+   "alert_loss": "ok",
+   "alert_trailing": "ok",
+   "disable_alert": "ok"
+  }
+ },
+ "strategy.opentrades.commission": {
+  "params": {
+   "trade_num": "ok"
+  }
+ },
+ "strategy.opentrades.entry_bar_index": {
+  "params": {
+   "trade_num": "ok"
+  }
+ },
+ "strategy.opentrades.entry_comment": {
+  "params": {
+   "trade_num": "ok"
+  }
+ },
+ "strategy.opentrades.entry_id": {
+  "params": {
+   "trade_num": "ok"
+  }
+ },
+ "strategy.opentrades.entry_price": {
+  "params": {
+   "trade_num": "ok"
+  }
+ },
+ "strategy.opentrades.entry_time": {
+  "params": {
+   "trade_num": "ok"
+  }
+ },
+ "strategy.opentrades.max_drawdown": {
+  "params": {
+   "trade_num": "ok"
+  }
+ },
+ "strategy.opentrades.max_drawdown_percent": {
+  "params": {
+   "trade_num": "ok"
+  }
+ },
+ "strategy.opentrades.max_runup": {
+  "params": {
+   "trade_num": "ok"
+  }
+ },
+ "strategy.opentrades.max_runup_percent": {
+  "params": {
+   "trade_num": "ok"
+  }
+ },
+ "strategy.opentrades.profit": {
+  "params": {
+   "trade_num": "ok"
+  }
+ },
+ "strategy.opentrades.profit_percent": {
+  "params": {
+   "trade_num": "ok"
+  }
+ },
+ "strategy.opentrades.size": {
+  "params": {
+   "trade_num": "ok"
+  }
+ },
+ "strategy.order": {
+  "params": {
+   "id": "ok",
+   "direction": "ok",
+   "qty": "ok",
+   "limit": "ok",
+   "stop": "ok",
+   "oca_name": "ok",
+   "oca_type": "ok",
+   "comment": "ok",
+   "alert_message": "ok",
+   "disable_alert": "ok"
+  }
+ },
+ "strategy.risk.allow_entry_in": {
+  "params": {
+   "value": "ok"
+  }
+ },
+ "strategy.risk.max_cons_loss_days": {
+  "params": {
+   "count": "ok",
+   "alert_message": "ok"
+  }
+ },
+ "strategy.risk.max_drawdown": {
+  "params": {
+   "value": "ok",
+   "type": "ok",
+   "alert_message": "ok"
+  }
+ },
+ "strategy.risk.max_intraday_filled_orders": {
+  "params": {
+   "count": "ok",
+   "alert_message": "ok"
+  }
+ },
+ "strategy.risk.max_intraday_loss": {
+  "params": {
+   "value": "ok",
+   "type": "ok",
+   "alert_message": "ok"
+  }
+ },
+ "strategy.risk.max_position_size": {
+  "params": {
+   "contracts": "ok"
+  }
+ },
+ "string": {
+  "params": {
+   "x": "ok"
+  }
+ },
+ "syminfo.prefix": {
+  "params": {
+   "symbol": "ok"
+  }
+ },
+ "syminfo.ticker": {
+  "params": {
+   "symbol": "ok"
+  }
+ },
+ "ta.alma": {
+  "params": {
+   "series": "ok",
+   "length": "ok",
+   "offset": "ok",
+   "sigma": "ok",
+   "floor": "ok"
+  }
+ },
+ "ta.atr": {
+  "params": {
+   "length": "ok"
+  }
+ },
+ "ta.barssince": {
+  "params": {
+   "condition": "ok"
+  }
+ },
+ "ta.bb": {
+  "params": {
+   "series": "ok",
+   "length": "ok",
+   "mult": "ok"
+  }
+ },
+ "ta.bbw": {
+  "params": {
+   "series": "ok",
+   "length": "ok",
+   "mult": "ok"
+  }
+ },
+ "ta.cci": {
+  "params": {
+   "source": "ok",
+   "length": "ok"
+  }
+ },
+ "ta.change": {
+  "params": {
+   "source": "ok",
+   "length": "ok"
+  }
+ },
+ "ta.cmo": {
+  "params": {
+   "series": "ok",
+   "length": "ok"
+  }
+ },
+ "ta.cog": {
+  "params": {
+   "source": "ok",
+   "length": "ok"
+  }
+ },
+ "ta.correlation": {
+  "params": {
+   "source1": "ok",
+   "source2": "ok",
+   "length": "ok"
+  }
+ },
+ "ta.cross": {
+  "params": {
+   "source1": "ok",
+   "source2": "ok"
+  }
+ },
+ "ta.crossover": {
+  "params": {
+   "source1": "ok",
+   "source2": "ok"
+  }
+ },
+ "ta.crossunder": {
+  "params": {
+   "source1": "ok",
+   "source2": "ok"
+  }
+ },
+ "ta.cum": {
+  "params": {
+   "source": "ok"
+  }
+ },
+ "ta.dev": {
+  "params": {
+   "source": "ok",
+   "length": "ok"
+  }
+ },
+ "ta.dmi": {
+  "params": {
+   "diLength": "ok",
+   "adxSmoothing": "ok"
+  }
+ },
+ "ta.ema": {
+  "params": {
+   "source": "ok",
+   "length": "ok"
+  }
+ },
+ "ta.falling": {
+  "params": {
+   "source": "ok",
+   "length": "ok"
+  }
+ },
+ "ta.highest": {
+  "params": {
+   "source": "ok",
+   "length": "ok"
+  }
+ },
+ "ta.highestbars": {
+  "params": {
+   "source": "ok",
+   "length": "ok"
+  }
+ },
+ "ta.hma": {
+  "params": {
+   "source": "ok",
+   "length": "ok"
+  }
+ },
+ "ta.kc": {
+  "params": {
+   "series": "ok",
+   "length": "ok",
+   "mult": "ok",
+   "useTrueRange": "ok"
+  }
+ },
+ "ta.kcw": {
+  "params": {
+   "series": "ok",
+   "length": "ok",
+   "mult": "ok",
+   "useTrueRange": "ok"
+  }
+ },
+ "ta.linreg": {
+  "params": {
+   "source": "ok",
+   "length": "ok",
+   "offset": "ok"
+  }
+ },
+ "ta.lowest": {
+  "params": {
+   "source": "ok",
+   "length": "ok"
+  }
+ },
+ "ta.lowestbars": {
+  "params": {
+   "source": "ok",
+   "length": "ok"
+  }
+ },
+ "ta.macd": {
+  "params": {
+   "source": "ok",
+   "fastlen": "ok",
+   "slowlen": "ok",
+   "siglen": "ok"
+  }
+ },
+ "ta.max": {
+  "params": {
+   "source": "ok"
+  }
+ },
+ "ta.median": {
+  "params": {
+   "source": "ok",
+   "length": "ok"
+  }
+ },
+ "ta.mfi": {
+  "params": {
+   "series": "ok",
+   "length": "ok"
+  }
+ },
+ "ta.min": {
+  "params": {
+   "source": "ok"
+  }
+ },
+ "ta.mode": {
+  "params": {
+   "source": "ok",
+   "length": "ok"
+  }
+ },
+ "ta.mom": {
+  "params": {
+   "source": "ok",
+   "length": "ok"
+  }
+ },
+ "ta.percentile_linear_interpolation": {
+  "params": {
+   "source": "ok",
+   "length": "ok",
+   "percentage": "ok"
+  }
+ },
+ "ta.percentile_nearest_rank": {
+  "params": {
+   "source": "ok",
+   "length": "ok",
+   "percentage": "ok"
+  }
+ },
+ "ta.percentrank": {
+  "params": {
+   "source": "ok",
+   "length": "ok"
+  }
+ },
+ "ta.pivot_point_levels": {
+  "params": {
+   "type": "ok",
+   "anchor": "ok",
+   "developing": "ok"
+  }
+ },
+ "ta.pivothigh": {
+  "params": {
+   "leftbars": "ok",
+   "rightbars": "ok",
+   "source": "ok"
+  }
+ },
+ "ta.pivotlow": {
+  "params": {
+   "leftbars": "ok",
+   "rightbars": "ok",
+   "source": "ok"
+  }
+ },
+ "ta.range": {
+  "params": {
+   "source": "ok",
+   "length": "ok"
+  }
+ },
+ "ta.rci": {
+  "params": {
+   "source": "ok",
+   "length": "ok"
+  }
+ },
+ "ta.rising": {
+  "params": {
+   "source": "ok",
+   "length": "ok"
+  }
+ },
+ "ta.rma": {
+  "params": {
+   "source": "ok",
+   "length": "ok"
+  }
+ },
+ "ta.roc": {
+  "params": {
+   "source": "ok",
+   "length": "ok"
+  }
+ },
+ "ta.rsi": {
+  "params": {
+   "source": "ok",
+   "length": "ok"
+  }
+ },
+ "ta.sar": {
+  "params": {
+   "start": "ok",
+   "inc": "ok",
+   "max": "ok"
+  }
+ },
+ "ta.sma": {
+  "params": {
+   "source": "ok",
+   "length": "ok"
+  }
+ },
+ "ta.stdev": {
+  "params": {
+   "source": "ok",
+   "length": "ok",
+   "biased": "ok"
+  }
+ },
+ "ta.stoch": {
+  "params": {
+   "source": "ok",
+   "high": "ok",
+   "low": "ok",
+   "length": "ok"
+  }
+ },
+ "ta.supertrend": {
+  "params": {
+   "factor": "ok",
+   "atrPeriod": "ok"
+  }
+ },
+ "ta.swma": {
+  "params": {
+   "source": "ok"
+  }
+ },
+ "ta.tr": {
+  "params": {
+   "handle_na": "ok"
+  }
+ },
+ "ta.tsi": {
+  "params": {
+   "source": "ok",
+   "short_length": "ok",
+   "long_length": "ok"
+  }
+ },
+ "ta.valuewhen": {
+  "params": {
+   "condition": "ok",
+   "source": "ok",
+   "occurrence": "ok"
+  }
+ },
+ "ta.variance": {
+  "params": {
+   "source": "ok",
+   "length": "ok",
+   "biased": "ok"
+  }
+ },
+ "ta.vwap": {
+  "params": {
+   "source": "ok",
+   "anchor": "ok",
+   "stdev_mult": "rejected"
+  }
+ },
+ "ta.vwma": {
+  "params": {
+   "source": "ok",
+   "length": "ok"
+  }
+ },
+ "ta.wma": {
+  "params": {
+   "source": "ok",
+   "length": "ok"
+  }
+ },
+ "ta.wpr": {
+  "params": {
+   "length": "ok"
+  }
+ },
+ "table": {
+  "params": {
+   "x": "ok"
+  }
+ },
+ "table.cell": {
+  "params": {
+   "table_id": "ok",
+   "column": "ok",
+   "row": "ok",
+   "text": "ok",
+   "width": "ok",
+   "height": "ok",
+   "text_color": "ok",
+   "text_halign": "ok",
+   "text_valign": "ok",
+   "text_size": "ok",
+   "bgcolor": "ok",
+   "tooltip": "ok",
+   "text_font_family": "ok",
+   "text_formatting": "ok"
+  }
+ },
+ "table.cell_set_bgcolor": {
+  "params": {
+   "table_id": "ok",
+   "column": "ok",
+   "row": "ok",
+   "bgcolor": "ok"
+  }
+ },
+ "table.cell_set_height": {
+  "params": {
+   "table_id": "ok",
+   "column": "ok",
+   "row": "ok",
+   "height": "ok"
+  }
+ },
+ "table.cell_set_text": {
+  "params": {
+   "table_id": "ok",
+   "column": "ok",
+   "row": "ok",
+   "text": "ok"
+  }
+ },
+ "table.cell_set_text_color": {
+  "params": {
+   "table_id": "ok",
+   "column": "ok",
+   "row": "ok",
+   "text_color": "ok"
+  }
+ },
+ "table.cell_set_text_font_family": {
+  "params": {
+   "table_id": "ok",
+   "column": "ok",
+   "row": "ok",
+   "text_font_family": "ok"
+  }
+ },
+ "table.cell_set_text_formatting": {
+  "params": {
+   "table_id": "ok",
+   "column": "ok",
+   "row": "ok",
+   "text_formatting": "ok"
+  }
+ },
+ "table.cell_set_text_halign": {
+  "params": {
+   "table_id": "ok",
+   "column": "ok",
+   "row": "ok",
+   "text_halign": "ok"
+  }
+ },
+ "table.cell_set_text_size": {
+  "params": {
+   "table_id": "ok",
+   "column": "ok",
+   "row": "ok",
+   "text_size": "ok"
+  }
+ },
+ "table.cell_set_text_valign": {
+  "params": {
+   "table_id": "ok",
+   "column": "ok",
+   "row": "ok",
+   "text_valign": "ok"
+  }
+ },
+ "table.cell_set_tooltip": {
+  "params": {
+   "table_id": "ok",
+   "column": "ok",
+   "row": "ok",
+   "tooltip": "ok"
+  }
+ },
+ "table.cell_set_width": {
+  "params": {
+   "table_id": "ok",
+   "column": "ok",
+   "row": "ok",
+   "width": "ok"
+  }
+ },
+ "table.clear": {
+  "params": {
+   "table_id": "ok",
+   "start_column": "ok",
+   "start_row": "ok",
+   "end_column": "ok",
+   "end_row": "ok"
+  }
+ },
+ "table.delete": {
+  "params": {
+   "table_id": "ok"
+  }
+ },
+ "table.merge_cells": {
+  "params": {
+   "table_id": "ok",
+   "start_column": "ok",
+   "start_row": "ok",
+   "end_column": "ok",
+   "end_row": "ok"
+  }
+ },
+ "table.new": {
+  "params": {
+   "position": "ok",
+   "columns": "ok",
+   "rows": "ok",
+   "bgcolor": "ok",
+   "frame_color": "ok",
+   "frame_width": "ok",
+   "border_color": "ok",
+   "border_width": "ok",
+   "force_overlay": "ok"
+  }
+ },
+ "table.set_bgcolor": {
+  "params": {
+   "table_id": "ok",
+   "bgcolor": "ok"
+  }
+ },
+ "table.set_border_color": {
+  "params": {
+   "table_id": "ok",
+   "border_color": "ok"
+  }
+ },
+ "table.set_border_width": {
+  "params": {
+   "table_id": "ok",
+   "border_width": "ok"
+  }
+ },
+ "table.set_frame_color": {
+  "params": {
+   "table_id": "ok",
+   "frame_color": "ok"
+  }
+ },
+ "table.set_frame_width": {
+  "params": {
+   "table_id": "ok",
+   "frame_width": "ok"
+  }
+ },
+ "table.set_position": {
+  "params": {
+   "table_id": "ok",
+   "position": "ok"
+  }
+ },
+ "ticker.heikinashi": {
+  "params": {
+   "symbol": "ok"
+  }
+ },
+ "ticker.inherit": {
+  "params": {
+   "from_tickerid": "ok",
+   "symbol": "ok"
+  }
+ },
+ "ticker.kagi": {
+  "params": {
+   "symbol": "ok",
+   "reversal": "ok",
+   "param": "ok",
+   "style": "ok"
+  }
+ },
+ "ticker.linebreak": {
+  "params": {
+   "symbol": "ok",
+   "number_of_lines": "ok"
+  }
+ },
+ "ticker.modify": {
+  "params": {
+   "tickerid": "ok",
+   "session": "ok",
+   "adjustment": "ok",
+   "backadjustment": "ok",
+   "settlement_as_close": "ok"
+  }
+ },
+ "ticker.new": {
+  "params": {
+   "prefix": "ok",
+   "ticker": "ok",
+   "session": "ok",
+   "adjustment": "ok",
+   "backadjustment": "ok",
+   "settlement_as_close": "ok"
+  }
+ },
+ "ticker.pointfigure": {
+  "params": {
+   "symbol": "ok",
+   "source": "ok",
+   "style": "ok",
+   "param": "ok",
+   "reversal": "ok"
+  }
+ },
+ "ticker.renko": {
+  "params": {
+   "symbol": "ok",
+   "style": "ok",
+   "param": "ok",
+   "request_wicks": "ok",
+   "source": "ok"
+  }
+ },
+ "ticker.standard": {
+  "params": {
+   "symbol": "ok"
+  }
+ },
+ "time": {
+  "params": {
+   "timeframe": "ok",
+   "session": "ok",
+   "timezone": "rejected",
+   "bars_back": "ok",
+   "timeframe_bars_back": "ok"
+  }
+ },
+ "time_close": {
+  "params": {
+   "timeframe": "ok",
+   "session": "ok",
+   "timezone": "rejected",
+   "bars_back": "ok",
+   "timeframe_bars_back": "ok"
+  }
+ },
+ "timeframe.change": {
+  "params": {
+   "timeframe": "ok"
+  }
+ },
+ "timeframe.from_seconds": {
+  "params": {
+   "seconds": "ok"
+  }
+ },
+ "timeframe.in_seconds": {
+  "params": {
+   "timeframe": "ok"
+  }
+ },
+ "timestamp": {
+  "params": {
+   "dateString": "ok"
+  }
+ },
+ "volume_row.buy_volume": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "volume_row.delta": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "volume_row.down_price": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "volume_row.has_buy_imbalance": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "volume_row.has_sell_imbalance": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "volume_row.sell_volume": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "volume_row.total_volume": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "volume_row.up_price": {
+  "params": {
+   "id": "ok"
+  }
+ },
+ "weekofyear": {
+  "params": {
+   "time": "ok",
+   "timezone": "ok"
+  }
+ },
+ "year": {
+  "params": {
+   "time": "ok",
+   "timezone": "ok"
+  }
+ }
+}
