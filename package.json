@@ -1,6 +1,6 @@
 {
   "name": "pine-check",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Local Pine Script v6 validator — syntax, undeclared identifiers, parameter names, semantic checks — calibrated against TradingView's own compiler.",
   "type": "module",
   "bin": {
