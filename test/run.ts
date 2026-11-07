@@ -82,4 +82,6 @@ if (judged) {
   console.log(`oracle agreement: ${agreements}/${judged} = ${pct}%${REMOTE ? ' (live)' : ' (baseline ' + baseline.date + ')'}`);
   for (const d of disagreementsList) console.log(`  disagree ${d}`);
 }
-process.exit(fail ? 1 : 0);
+// exitCode, not exit(): under --remote, fetch sockets may still be closing
+// and process.exit() hits the Windows UV_HANDLE_CLOSING assert (see src/cli.ts).
+process.exitCode = fail ? 1 : 0;
