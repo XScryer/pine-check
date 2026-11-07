@@ -1,0 +1,229 @@
+{
+ "date": "2026-11-07",
+ "cases": {
+  "bad-indent.pine": {
+   "errors": 1,
+   "codes": [
+    "CE10013"
+   ],
+   "messages": [
+    "Mismatched input {unexpectedToken} expecting set {expecting}"
+   ]
+  },
+  "bad-input-const.pine": {
+   "errors": 1,
+   "codes": [
+    "CE10123"
+   ],
+   "messages": [
+    "Cannot call \"{funId}\" with argument \"{argDisplayName}\"=\"{argUserFriendlyRepresentation}\". An argumen"
+   ]
+  },
+  "bad-line-new-mixed.pine": {
+   "errors": 2,
+   "codes": [
+    "CE10120",
+    "CE10120"
+   ],
+   "messages": [
+    "The \"{signature}\" function does not have an argument with the name \"{name}\"",
+    "The \"{signature}\" function does not have an argument with the name \"{name}\""
+   ]
+  },
+  "bad-missing-req.pine": {
+   "errors": 2,
+   "codes": [
+    "CE10165",
+    "CE10165"
+   ],
+   "messages": [
+    "No value assigned to the \"{name}\" parameter in {functionName}()",
+    "No value assigned to the \"{name}\" parameter in {functionName}()"
+   ]
+  },
+  "bad-param-typo.pine": {
+   "errors": 1,
+   "codes": [
+    "CE10120"
+   ],
+   "messages": [
+    "The \"{signature}\" function does not have an argument with the name \"{name}\""
+   ]
+  },
+  "bad-timezone.pine": {
+   "errors": 1,
+   "codes": [
+    "CE10120"
+   ],
+   "messages": [
+    "The \"{signature}\" function does not have an argument with the name \"{name}\""
+   ]
+  },
+  "bad-token.pine": {
+   "errors": 1,
+   "codes": [
+    "CE10005"
+   ],
+   "messages": [
+    "no viable alternative at character {unexpectedToken}"
+   ]
+  },
+  "bad-unclosed.pine": {
+   "errors": 1,
+   "codes": [
+    "CE10015"
+   ],
+   "messages": [
+    "Syntax error: Missing closing parenthesis"
+   ]
+  },
+  "bad-undeclared.pine": {
+   "errors": 1,
+   "codes": [
+    "CE10272"
+   ],
+   "messages": [
+    "Undeclared identifier \"{identifier}\""
+   ]
+  },
+  "bad-use-undeclared-ns.pine": {
+   "errors": 2,
+   "codes": [
+    "CE10271",
+    "CE10272"
+   ],
+   "messages": [
+    "Could not find {kind} '{fullName}'",
+    "Undeclared identifier \"{identifier}\""
+   ]
+  },
+  "bad-varargs-named.pine": {
+   "errors": 1,
+   "codes": [
+    "CE10119"
+   ],
+   "messages": [
+    "Functions that accept a variable number of arguments cannot accept keyword arguments"
+   ]
+  },
+  "bad-vwap-missing-anchor.pine": {
+   "errors": 1,
+   "codes": [
+    "CE10165"
+   ],
+   "messages": [
+    "No value assigned to the \"{name}\" parameter in {functionName}()"
+   ]
+  },
+  "real-ArquiteturaInstitucionalForex.pine": {
+   "errors": 0,
+   "codes": [],
+   "messages": []
+  },
+  "real-FlowVPA.pine": {
+   "errors": 0,
+   "codes": [],
+   "messages": []
+  },
+  "real-FlowVPA_VolumeDelta_Suite.pine": {
+   "errors": 0,
+   "codes": [],
+   "messages": []
+  },
+  "real-VolumeDelta.pine": {
+   "errors": 0,
+   "codes": [],
+   "messages": []
+  },
+  "real-cRSITripleDivergenceMTFConfluenceEngine.pine": {
+   "errors": 0,
+   "codes": [],
+   "messages": []
+  },
+  "valid-box-coords.pine": {
+   "errors": 0,
+   "codes": [],
+   "messages": []
+  },
+  "valid-collections.pine": {
+   "errors": 0,
+   "codes": [],
+   "messages": []
+  },
+  "valid-defval-options.pine": {
+   "errors": 0,
+   "codes": [],
+   "messages": []
+  },
+  "valid-many-plots.pine": {
+   "errors": 0,
+   "codes": [],
+   "messages": []
+  },
+  "valid-multiline.pine": {
+   "errors": 0,
+   "codes": [],
+   "messages": []
+  },
+  "valid-named-args.pine": {
+   "errors": 0,
+   "codes": [],
+   "messages": []
+  },
+  "valid-request-reassign.pine": {
+   "errors": 0,
+   "codes": [],
+   "messages": []
+  },
+  "valid-request.pine": {
+   "errors": 0,
+   "codes": [],
+   "messages": []
+  },
+  "valid-simple.pine": {
+   "errors": 0,
+   "codes": [],
+   "messages": []
+  },
+  "valid-str-concat.pine": {
+   "errors": 0,
+   "codes": [],
+   "messages": []
+  },
+  "valid-strategy.pine": {
+   "errors": 0,
+   "codes": [],
+   "messages": []
+  },
+  "valid-switch.pine": {
+   "errors": 0,
+   "codes": [],
+   "messages": []
+  },
+  "valid-tuple.pine": {
+   "errors": 0,
+   "codes": [],
+   "messages": []
+  },
+  "valid-udt.pine": {
+   "errors": 0,
+   "codes": [],
+   "messages": []
+  },
+  "valid-v5-line-new.pine": {
+   "errors": 0,
+   "codes": [],
+   "messages": []
+  },
+  "valid-v5.pine": {
+   "errors": 0,
+   "codes": [],
+   "messages": []
+  },
+  "valid-varargs.pine": {
+   "errors": 0,
+   "codes": [],
+   "messages": []
+  }
+ }
+}

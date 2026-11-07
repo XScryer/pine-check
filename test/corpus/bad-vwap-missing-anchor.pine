@@ -1,0 +1,3 @@
+//@version=6
+indicator("Vwap")
+plot(ta.vwap(close, stdev_mult=2.0))

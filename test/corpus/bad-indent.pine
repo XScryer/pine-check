@@ -1,0 +1,5 @@
+//@version=6
+indicator("Indent")
+if close > open
+plot(close)
+    plot(open)

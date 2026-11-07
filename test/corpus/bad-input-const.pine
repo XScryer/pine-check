@@ -1,0 +1,5 @@
+//@version=6
+indicator("InputConst")
+for i = 0 to 3
+    x = input.int(i, "loop var")
+plot(close)

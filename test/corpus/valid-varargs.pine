@@ -1,0 +1,6 @@
+//@version=6
+indicator("Varargs")
+x = math.max(1, 2, 3)
+y = math.min(close, open, high, low)
+z = str.format("{0} {1}", close, open)
+plot(x + y)

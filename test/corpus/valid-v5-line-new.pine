@@ -1,0 +1,4 @@
+//@version=5
+indicator("V5 line.new x1 legal")
+l = line.new(x1=bar_index, y1=low, x2=bar_index+1, y2=high, color=color.red)
+plot(close)

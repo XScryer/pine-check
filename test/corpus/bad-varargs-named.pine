@@ -1,0 +1,4 @@
+//@version=6
+indicator("Varargs named")
+x = math.max(number0=1, number1=2)
+plot(x)

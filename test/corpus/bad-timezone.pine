@@ -1,0 +1,4 @@
+//@version=6
+indicator("TZ")
+t = time(timeframe.period, timezone="UTC")
+plot(t)

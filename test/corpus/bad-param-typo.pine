@@ -1,0 +1,3 @@
+//@version=6
+indicator("Typo")
+plot(close, colur=color.blue)

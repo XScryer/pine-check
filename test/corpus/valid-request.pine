@@ -1,0 +1,4 @@
+//@version=6
+indicator("HTF", timeframe="D")
+htfClose = request.security(syminfo.tickerid, "D", close, gaps=barmerge.gaps_off)
+plot(htfClose)

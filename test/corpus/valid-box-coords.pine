@@ -1,0 +1,4 @@
+//@version=6
+indicator("BoxNew")
+b = box.new(left=bar_index, top=high, right=bar_index+1, bottom=low)
+plot(close)

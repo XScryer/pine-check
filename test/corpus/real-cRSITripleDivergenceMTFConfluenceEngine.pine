@@ -1,0 +1,254 @@
+//@version=6
+indicator(title="cRSI Triple Divergence + MTF Confluence Engine", shorttitle="cRSI-MTF-PRO", overlay=false, max_bars_back=500)
+
+// ================= 1. MULTI-TIMEFRAME & TREND INPUTS =================
+grp_mtf     = "Multi-Timeframe Trend Alignment (3 Horizons)"
+useMtfTrend = input.bool(true, "Show MTF Matrix in Dashboard", group=grp_mtf, 
+              tooltip="Displays real-time trend direction across the current chart and two higher timeframes inside the bottom-right table.")
+filterByMtf = input.bool(false, "Require MTF Alignment for Divergence Signals", group=grp_mtf, 
+              tooltip="Strict institutional filter: only plots and alerts Bullish Divergences if both higher timeframes are in an uptrend, and Bearish Divergences if both are in a downtrend.")
+htf1        = input.timeframe("15", "Higher Timeframe 1 (HTF1)", group=grp_mtf, 
+              tooltip="First higher timeframe used for intermediate trend bias (e.g., '15' for M15, or '5' if trading on M1).")
+htf2        = input.timeframe("60", "Higher Timeframe 2 (HTF2)", group=grp_mtf, 
+              tooltip="Second higher timeframe used for macro structural bias (e.g., '60' for H1, or '15' if trading on M1).")
+mtfEmaLen   = input.int(50, "MTF Trend EMA Length", minval=5, group=grp_mtf, 
+              tooltip="Lookback period of the Exponential Moving Average used to define trend direction on each respective timeframe.")
+
+// ================= 2. LOCAL MOVING AVERAGE FILTER =================
+grp_ema   = "Local Chart Trend Filter"
+useEma    = input.bool(false, "Filter Signals by Local EMA", group=grp_ema, 
+            tooltip="When enabled, allows bullish signals only when price is above this EMA, and bearish signals only when price is below it.")
+emaLen    = input.int(200, "Local EMA Length", minval=5, group=grp_ema, 
+            tooltip="Lookback period for the local chart EMA (typically 200 for major institutional bias).")
+
+// ================= 3. cRSI OSCILLATOR PARAMETERS =================
+grp_len   = "Cyclic RSI Lengths (Lars von Thienen / Zero-Lag)"
+len1      = input.int(10, "Fast cRSI Length", minval=5, group=grp_len, 
+            tooltip="Shorter cycle length to capture fast momentum shifts and early exhaustion.")
+len2      = input.int(20, "Base cRSI Length (Plotted Curve)", minval=5, group=grp_len, 
+            tooltip="Primary baseline cRSI plotted on the sub-panel. Divergence trendlines and mid-point labels are anchored to this curve.")
+len3      = input.int(50, "Slow cRSI Length", minval=10, group=grp_len, 
+            tooltip="Longer cycle length to filter structural, multi-leg divergence patterns.")
+
+// ================= 4. PIVOTS & CONFIRMATION LOGIC =================
+grp_piv   = "Swing Pivot Settings"
+lbL       = input.int(5, "Left Bars (Pivot Strength)", minval=1, group=grp_piv, 
+            tooltip="Number of bars to the left required to validate a swing extreme. Increase (e.g., 7-10) on M1 to filter out micro-noise.")
+lbR       = input.int(3, "Right Bars (Confirmation Lag)", minval=1, group=grp_piv, 
+            tooltip="Number of bars to the right required to confirm a pivot. Signals trigger exactly lbR bars after the peak/trough to eliminate repainting.")
+minDist   = input.int(4, "Min Distance Between Pivots (Bars)", minval=1, group=grp_piv, 
+            tooltip="Minimum horizontal distance in bars required between two pivots to prevent clustering.")
+maxDist   = input.int(50, "Max Distance Between Pivots (Bars)", minval=10, group=grp_piv, 
+            tooltip="Maximum lookback span between two pivots. Older extremes beyond this window are discarded.")
+minAgree  = input.int(2, "Min cRSI Agreement (2 or 3)", minval=1, maxval=3, group=grp_piv, 
+            tooltip="Minimum number of cRSI lengths that must simultaneously diverge. Score 2/3 shows standard lines; 3/3 produces thick lines and primary alerts.")
+
+// ================= 5. EXTREMES FILTERS =================
+grp_filt   = "Quality & Execution Filters"
+filterOBOS = input.bool(true, "Require Pivot in Extreme Zone", group=grp_filt, 
+             tooltip="Eliminates low-probability mid-range divergences. Requires at least one cRSI pivot to be in Overbought (for Highs) or Oversold (for Lows).")
+osLevel    = input.float(35.0, "Oversold Level (Bullish Max Threshold)", group=grp_filt, 
+             tooltip="Upper boundary for oversold extremes. At least one trough must be below or equal to this level to validate bullish divergence.")
+obLevel    = input.float(65.0, "Overbought Level (Bearish Min Threshold)", group=grp_filt, 
+             tooltip="Lower boundary for overbought extremes. At least one peak must be above or equal to this level to validate bearish divergence.")
+
+// ================= 6. VISUALS & PERFORMANCE =================
+grp_vis   = "Display & Performance"
+showOther = input.bool(false, "Show Fast & Slow cRSI Curves", group=grp_vis, 
+            tooltip="Plots the 10-period (olive) and 50-period (teal) cRSI lines alongside the primary base curve.")
+showTable = input.bool(true, "Display Dashboard Table", group=grp_vis, 
+            tooltip="Enables the real-time status and MTF trend alignment table in the bottom-right corner.")
+maxItems  = input.int(25, "Max Stored Lines/Labels", minval=5, maxval=50, group=grp_vis, 
+            tooltip="Limits the number of historical lines and labels kept in memory to preserve smooth chart performance.")
+
+src = close
+
+// ================= cRSI CALCULATION ENGINE =================
+f_crsi(s, domcycle) =>
+    cyclelen   = int(domcycle / 2)
+    vibration  = 10
+    phasingLag = int((vibration - 1) / 2.0)
+    torque     = 2.0 / (vibration + 1)
+    up         = ta.rma(math.max(ta.change(s), 0), cyclelen)
+    down       = ta.rma(-math.min(ta.change(s), 0), cyclelen)
+    rsi        = down == 0 ? 100.0 : up == 0 ? 0.0 : 100.0 - 100.0 / (1.0 + up / down)
+    c          = 0.0
+    c         := torque * (2.0 * rsi - rsi[phasingLag]) + (1.0 - torque) * nz(c[1])
+    c
+
+c1 = f_crsi(src, len1)
+c2 = f_crsi(src, len2)
+c3 = f_crsi(src, len3)
+
+// ================= MULTI-TIMEFRAME ENGINE (NON-REPAINTING) =================
+localMtfEma = ta.ema(close, mtfEmaLen)
+trendLocal  = close > localMtfEma ? 1 : -1
+
+// Solicitação de dados com barra fechada dos tempos maiores para evitar repintura
+emaHtf1   = request.security(syminfo.tickerid, htf1, ta.ema(close, mtfEmaLen)[1], barmerge.gaps_off, barmerge.lookahead_off)
+closeHtf1 = request.security(syminfo.tickerid, htf1, close[1], barmerge.gaps_off, barmerge.lookahead_off)
+trendHtf1 = closeHtf1 > emaHtf1 ? 1 : -1
+
+emaHtf2   = request.security(syminfo.tickerid, htf2, ta.ema(close, mtfEmaLen)[1], barmerge.gaps_off, barmerge.lookahead_off)
+closeHtf2 = request.security(syminfo.tickerid, htf2, close[1], barmerge.gaps_off, barmerge.lookahead_off)
+trendHtf2 = closeHtf2 > emaHtf2 ? 1 : -1
+
+// Alinhamento consolidado nos 3 horizontes
+bullishAligned = (trendLocal == 1) and (trendHtf1 == 1) and (trendHtf2 == 1)
+bearishAligned = (trendLocal == -1) and (trendHtf1 == -1) and (trendHtf2 == -1)
+
+// ================= PRICE PIVOT DETECTION =================
+ph = ta.pivothigh(high, lbL, lbR)
+pl = ta.pivotlow(low, lbL, lbR)
+
+var float prevHighPrice = na
+var int   prevHighBar   = na
+var float prevHighC1    = na
+var float prevHighC2    = na
+var float prevHighC3    = na
+
+var float prevLowPrice  = na
+var int   prevLowBar    = na
+var float prevLowC1     = na
+var float prevLowC2     = na
+var float prevLowC3     = na
+
+var line[]  dLines  = array.new<line>()
+var label[] dLabels = array.new<label>()
+
+var string lastDivType  = "None"
+var int    lastDivScore = 0
+
+localFilterEma = ta.ema(src, emaLen)
+
+// ================= BULLISH DIVERGENCE LOGIC =================
+if not na(pl)
+    curLowPrice = low[lbR]
+    curLowBar   = bar_index[lbR]
+    curLowC1    = c1[lbR]
+    curLowC2    = c2[lbR]
+    curLowC3    = c3[lbR]
+
+    if not na(prevLowPrice)
+        dist = curLowBar - prevLowBar
+        if dist >= minDist and dist <= maxDist
+            priceLower = curLowPrice < prevLowPrice
+            div1 = curLowC1 > prevLowC1
+            div2 = curLowC2 > prevLowC2
+            div3 = curLowC3 > prevLowC3
+            score = (div1 ? 1 : 0) + (div2 ? 1 : 0) + (div3 ? 1 : 0)
+
+            obCondition = not filterOBOS or (prevLowC2 <= osLevel or curLowC2 <= osLevel)
+            emaCond     = not useEma or (close[lbR] > localFilterEma[lbR])
+            mtfCond     = not filterByMtf or (trendHtf1 == 1 and trendHtf2 == 1)
+
+            if priceLower and (score >= minAgree) and obCondition and emaCond and mtfCond
+                lastDivType  := "Bullish"
+                lastDivScore := score
+                lColor = score == 3 ? color.lime : color.teal
+                lWidth = score == 3 ? 2 : 1
+
+                newLine = line.new(prevLowBar, prevLowC2, curLowBar, curLowC2, xloc=xloc.bar_index, color=lColor, width=lWidth)
+                array.push(dLines, newLine)
+
+                // Rótulo posicionado no ponto médio da reta
+                midBar = int(math.round((prevLowBar + curLowBar) / 2.0))
+                midVal = (prevLowC2 + curLowC2) / 2.0
+                newLbl = label.new(midBar, midVal, text="▲ " + str.tostring(score) + "/3", xloc=xloc.bar_index, style=label.style_label_up, color=lColor, textcolor=color.black, size=size.small)
+                array.push(dLabels, newLbl)
+
+                if score == 3
+                    alert("EUR/USD: Strong Bullish Divergence [3/3] confirmed on " + timeframe.period, alert.freq_once_per_bar_close)
+
+    prevLowPrice := curLowPrice
+    prevLowBar   := curLowBar
+    prevLowC1    := curLowC1
+    prevLowC2    := curLowC2
+    prevLowC3    := curLowC3
+
+// ================= BEARISH DIVERGENCE LOGIC =================
+if not na(ph)
+    curHighPrice = high[lbR]
+    curHighBar   = bar_index[lbR]
+    curHighC1    = c1[lbR]
+    curHighC2    = c2[lbR]
+    curHighC3    = c3[lbR]
+
+    if not na(prevHighPrice)
+        dist = curHighBar - prevHighBar
+        if dist >= minDist and dist <= maxDist
+            priceHigher = curHighPrice > prevHighPrice
+            div1 = curHighC1 < prevHighC1
+            div2 = curHighC2 < prevHighC2
+            div3 = curHighC3 < prevHighC3
+            score = (div1 ? 1 : 0) + (div2 ? 1 : 0) + (div3 ? 1 : 0)
+
+            obCondition = not filterOBOS or (prevHighC2 >= obLevel or curHighC2 >= obLevel)
+            emaCond     = not useEma or (close[lbR] < localFilterEma[lbR])
+            mtfCond     = not filterByMtf or (trendHtf1 == -1 and trendHtf2 == -1)
+
+            if priceHigher and (score >= minAgree) and obCondition and emaCond and mtfCond
+                lastDivType  := "Bearish"
+                lastDivScore := score
+                lColor = score == 3 ? color.red : color.orange
+                lWidth = score == 3 ? 2 : 1
+
+                newLine = line.new(prevHighBar, prevHighC2, curHighBar, curHighC2, xloc=xloc.bar_index, color=lColor, width=lWidth)
+                array.push(dLines, newLine)
+
+                // Rótulo posicionado no ponto médio da reta
+                midBar = int(math.round((prevHighBar + curHighBar) / 2.0))
+                midVal = (prevHighC2 + curHighC2) / 2.0
+                newLbl = label.new(midBar, midVal, text="▼ " + str.tostring(score) + "/3", xloc=xloc.bar_index, style=label.style_label_down, color=lColor, textcolor=color.white, size=size.small)
+                array.push(dLabels, newLbl)
+
+                if score == 3
+                    alert("EUR/USD: Strong Bearish Divergence [3/3] confirmed on " + timeframe.period, alert.freq_once_per_bar_close)
+
+    prevHighPrice := curHighPrice
+    prevHighBar   := curHighBar
+    prevHighC1    := curHighC1
+    prevHighC2    := curHighC2
+    prevHighC3    := curHighC3
+
+// Gerenciamento de memória de linhas e rótulos
+while array.size(dLines) > maxItems
+    line.delete(array.shift(dLines))
+while array.size(dLabels) > maxItems
+    label.delete(array.shift(dLabels))
+
+// ================= PLOTS & OSCILLATOR ZONES =================
+plot(showOther ? c1 : na, title="Fast cRSI (10)", color=color.rgb(128, 128, 0, 50), linewidth=1)
+plot(c2, title="Base cRSI (20)", color=color.fuchsia, linewidth=2)
+plot(showOther ? c3 : na, title="Slow cRSI (50)", color=color.rgb(0, 137, 123, 50), linewidth=1)
+
+h70 = hline(70, "Overbought (70)", color=color.new(color.gray, 60), linestyle=hline.style_dotted)
+h50 = hline(50, "Median Line (50)", color=color.new(color.gray, 75), linestyle=hline.style_dashed)
+h30 = hline(30, "Oversold (30)", color=color.new(color.gray, 60), linestyle=hline.style_dotted)
+fill(h70, h30, color=color.new(color.blue, 97), title="Neutral Territory")
+
+// ================= DASHBOARD TABLE (BOTTOM-RIGHT) =================
+var table tbl = table.new(position.bottom_right, 2, 6, border_width=1, border_color=color.gray)
+if showTable and barstate.islast
+    // Leitura da última divergência
+    table.cell(tbl, 0, 0, "Last Divergence", bgcolor=color.rgb(25, 25, 25), text_color=color.white, text_size=size.small)
+    table.cell(tbl, 1, 0, lastDivType + " (" + str.tostring(lastDivScore) + "/3)", bgcolor=color.rgb(25, 25, 25), 
+               text_color=lastDivType == "Bullish" ? color.lime : lastDivType == "Bearish" ? color.red : color.gray, text_size=size.small)
+
+    if useMtfTrend
+        // Matriz de tendência nos 3 tempos
+        table.cell(tbl, 0, 1, "Current TF (" + timeframe.period + ")", bgcolor=color.rgb(25, 25, 25), text_color=color.white, text_size=size.small)
+        table.cell(tbl, 1, 1, trendLocal == 1 ? "BULLISH" : "BEARISH", bgcolor=color.rgb(25, 25, 25), text_color=trendLocal == 1 ? color.lime : color.red, text_size=size.small)
+
+        table.cell(tbl, 0, 2, "HTF 1 (" + htf1 + ")", bgcolor=color.rgb(25, 25, 25), text_color=color.white, text_size=size.small)
+        table.cell(tbl, 1, 2, trendHtf1 == 1 ? "BULLISH" : "BEARISH", bgcolor=color.rgb(25, 25, 25), text_color=trendHtf1 == 1 ? color.lime : color.red, text_size=size.small)
+
+        table.cell(tbl, 0, 3, "HTF 2 (" + htf2 + ")", bgcolor=color.rgb(25, 25, 25), text_color=color.white, text_size=size.small)
+        table.cell(tbl, 1, 3, trendHtf2 == 1 ? "BULLISH" : "BEARISH", bgcolor=color.rgb(25, 25, 25), text_color=trendHtf2 == 1 ? color.lime : color.red, text_size=size.small)
+
+        // Estado consolidado de confluência
+        string confText = bullishAligned ? "STRONG BULL" : bearishAligned ? "STRONG BEAR" : "MIXED / PULLBACK"
+        color  confCol  = bullishAligned ? color.lime : bearishAligned ? color.red : color.yellow
+
+        table.cell(tbl, 0, 4, "Confluence State", bgcolor=color.rgb(25, 25, 25), text_color=color.white, text_size=size.small)
+        table.cell(tbl, 1, 4, confText, bgcolor=color.rgb(25, 25, 25), text_color=confCol, text_size=size.small)

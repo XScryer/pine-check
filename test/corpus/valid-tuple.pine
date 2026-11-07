@@ -1,0 +1,4 @@
+//@version=6
+indicator("Tuple")
+[a, b] = request.security(syminfo.tickerid, "D", [close, open])
+plot(a - b)

@@ -1,0 +1,11 @@
+//@version=6
+indicator("Wrapped")
+s = """
+multi
+line (with) = parens
+"""
+plot(
+     ta.sma(close, 14),
+     color = color.red,
+     title   = "wrapped call"
+     )

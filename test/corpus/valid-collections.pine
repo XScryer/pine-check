@@ -1,0 +1,8 @@
+//@version=6
+indicator("Collections")
+var arr = array.new<float>()
+if barstate.islast
+    array.push(arr, close)
+    m = map.new<string, float>()
+    map.put(m, "px", close)
+plot(array.size(arr))
