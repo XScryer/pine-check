@@ -1,0 +1,5 @@
+{"fn":"math.round","param":"precision","verdict":"accepted"}
+{"fn":"str.tostring","param":"format","verdict":"accepted"}
+{"fn":"ta.vwap","param":"stdev_mult","verdict":"rejected"}
+{"fn":"ticker.kagi","param":"param","verdict":"accepted"}
+{"fn":"ticker.kagi","param":"style","verdict":"accepted"}
