@@ -1,21 +1,27 @@
 {
   "name": "pine-check",
   "version": "0.1.0",
-  "description": "Local Pine Script v5/v6 validator — syntax, undeclared identifiers, parameter names, semantic checks — calibrated against TradingView's own compiler.",
+  "description": "Local Pine Script v6 validator — syntax, undeclared identifiers, parameter names, semantic checks — calibrated against TradingView's own compiler.",
   "type": "module",
   "bin": {
     "pine-check": "./bin/pine-check.mjs"
   },
   "scripts": {
-    "check": "node bin/pine-check.mjs",
-    "test": "node test/run.mjs"
+    "check": "tsx src/cli.ts",
+    "test": "tsx test/run.ts"
   },
   "license": "AGPL-3.0-only",
   "engines": {
     "node": ">=20"
   },
   "dependencies": {
-    "pinets": "0.13.1",
+    "acorn": "^8.14.0",
+    "acorn-walk": "^8.3.4",
+    "astring": "^1.9.0",
     "pinescript-v6-validator": "0.4.3"
+  },
+  "devDependencies": {
+    "tsx": "^4.21.0",
+    "typescript": "~5.9.3"
   }
 }

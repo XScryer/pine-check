@@ -1,0 +1,405 @@
+// SPDX-License-Identifier: AGPL-3.0-only
+
+import { Series } from '../../Series';
+import { TableObject, truncCoord } from './TableObject';
+import { silentInSecondary } from '../silentInSecondary';
+import { spreadNamedArgs } from '../namedArgs';
+
+// Parameters of each function in TradingView reference order, for spreading named arguments.
+// They MUST cover every parameter: a named argument missing here is silently dropped.
+//prettier-ignore
+const TABLE_NEW_PARAMS = [
+    'position', 'columns', 'rows', 'bgcolor', 'frame_color', 'frame_width',
+    'border_color', 'border_width', 'force_overlay',
+];
+//prettier-ignore
+const TABLE_CELL_PARAMS = [
+    'table_id', 'column', 'row', 'text', 'width', 'height', 'text_color', 'text_halign',
+    'text_valign', 'text_size', 'bgcolor', 'tooltip', 'text_font_family', 'text_formatting',
+];
+const TABLE_RANGE_PARAMS = ['table_id', 'start_column', 'start_row', 'end_column', 'end_row'];
+export class TableHelper {
+    private _tables: TableObject[] = [];
+
+    constructor(private context: any) {}
+
+    param(source: any, index: number = 0, name?: string) {
+        return Series.from(source).get(index);
+    }
+
+    private _ensurePlotsEntry() {
+        if (!this.context.plots['__tables__']) {
+            this.context.plots['__tables__'] = {
+                title: '__tables__',
+                data: [],
+                options: { style: 'table', overlay: true },
+            };
+        }
+    }
+
+    public syncToPlot() {
+        this._ensurePlotsEntry();
+        const time = this.context.marketData[0]?.openTime || 0;
+        // Compact out deleted tables — bounded array (RC3), transparent output;
+        // rollbackFromBar filters by _createdAtBar, orthogonal to _deleted.
+        this._tables = this._tables.filter(tbl => !tbl._deleted);
+        this.context.plots['__tables__'].data = [{
+            time,
+            value: this._tables.map(tbl => tbl.toPlotData()),
+            options: { style: 'table' },
+        }];
+    }
+
+    private _resolve(val: any): any {
+        if (val === null || val === undefined) return val;
+        // NAHelper object — Pine Script's `na` used as a value resolves to NaN.
+        // This happens when na is a default parameter (e.g., `color background = na`).
+        if (typeof val === 'object' && '__value' in val) return val.__value;
+        if (typeof val === 'object' && Array.isArray(val.data) && typeof val.get === 'function') {
+            return val.get(0);
+        }
+        if (typeof val === 'function') {
+            return val();
+        }
+        return val;
+    }
+
+    // ── table.new ──────────────────────────────────────────────
+
+    @silentInSecondary
+    new(...args: any[]): TableObject {
+        let position: any = 'top_right';
+        let columns: any = 1;
+        let rows: any = 1;
+        let bgcolor: any = '';
+        let frame_color: any = '';
+        let frame_width: any = 0;
+        let border_color: any = '';
+        let border_width: any = 0;
+        let force_overlay: any = false;
+
+        // Named arguments (`table.new(position.top_right, 3, 3, bgcolor = c)` → `table.new(..., {bgcolor: c})`)
+        args = spreadNamedArgs(args, TABLE_NEW_PARAMS);
+        position = args[0] ?? position;
+        columns = args[1] ?? columns;
+        rows = args[2] ?? rows;
+        bgcolor = args[3] ?? bgcolor;
+        frame_color = args[4] ?? frame_color;
+        frame_width = args[5] ?? frame_width;
+        border_color = args[6] ?? border_color;
+        border_width = args[7] ?? border_width;
+        force_overlay = args[8] ?? force_overlay;
+
+        const tbl = new TableObject(
+            this._resolve(position) || 'top_right',
+            this._resolve(columns) || 1,
+            this._resolve(rows) || 1,
+            this._resolve(bgcolor) || '',
+            this._resolve(frame_color) || '',
+            this._resolve(frame_width) || 0,
+            this._resolve(border_color) || '',
+            this._resolve(border_width) || 0,
+            this._resolve(force_overlay) ?? false,
+        );
+        tbl._setHelper(this);
+        this._takePosition(tbl);
+        this._tables.push(tbl);
+        return tbl;
+    }
+
+    // TradingView shows one table per position: the newest one (or the one last moved there).
+    // The table it replaces is gone, which also keeps the table list bounded when a script
+    // creates a table on every bar.
+    private _takePosition(tbl: TableObject): void {
+        for (const other of this._tables) {
+            if (other !== tbl && !other._deleted && other.position === tbl.position) other._deleted = true;
+        }
+    }
+
+    // Pine `table(arg)` is a type cast / typed-na, NOT a constructor.
+    any(...args: any[]): TableObject | null {
+        if (args.length === 1) {
+            const arg = args[0];
+            if (arg === null || arg === undefined) return null;
+            if (typeof arg === 'object' && '__value' in arg) return null;  // NAHelper-like
+            if (typeof arg === 'number' && isNaN(arg)) return null;
+            if (arg instanceof TableObject) return arg;
+            return null;
+        }
+        return this.new(...args);
+    }
+
+    // ── table.cell ─────────────────────────────────────────────
+
+    @silentInSecondary
+    cell(...args: any[]): void {
+        let table_id: any;
+        let column: any;
+        let row: any;
+        let text: any = '';
+        let width: any = 0;
+        let height: any = 0;
+        let text_color: any = '#000000';
+        let text_halign: any = 'center';
+        let text_valign: any = 'center';
+        let text_size: any = 'normal';
+        let bgcolor: any = '';
+        let tooltip: any = '';
+        let text_font_family: any = 'default';
+        let text_formatting: any = 'none';
+
+        // Named arguments (`table.cell(t1, 0, 0, text = "X")` → `table.cell(t1, 0, 0, {text: "X"})`)
+        args = spreadNamedArgs(args, TABLE_CELL_PARAMS);
+        table_id = args[0];
+        column = args[1] ?? 0;
+        row = args[2] ?? 0;
+        text = args[3] ?? text;
+        width = args[4] ?? width;
+        height = args[5] ?? height;
+        text_color = args[6] ?? text_color;
+        text_halign = args[7] ?? text_halign;
+        text_valign = args[8] ?? text_valign;
+        text_size = args[9] ?? text_size;
+        bgcolor = args[10] ?? bgcolor;
+        tooltip = args[11] ?? tooltip;
+        text_font_family = args[12] ?? text_font_family;
+        text_formatting = args[13] ?? text_formatting;
+
+        const tbl = this._resolve(table_id) as TableObject;
+        if (!tbl || tbl._deleted) return;
+
+        const col = this._resolve(column) ?? 0;
+        const r = this._resolve(row) ?? 0;
+
+        tbl.setCell(col, r, {
+            text: this._resolveText(this._resolve(text)),
+            width: this._resolve(width) || 0,
+            height: this._resolve(height) || 0,
+            text_color: this._resolve(text_color) || '#000000',
+            text_halign: this._resolve(text_halign) || 'center',
+            text_valign: this._resolve(text_valign) || 'center',
+            text_size: this._resolve(text_size) || 'normal',
+            bgcolor: this._resolve(bgcolor) || '',
+            tooltip: this._resolveText(this._resolve(tooltip)),
+            text_font_family: this._resolve(text_font_family) || 'default',
+            text_formatting: this._resolve(text_formatting) || 'none',
+        });
+    }
+
+    // ── table.delete ───────────────────────────────────────────
+
+    @silentInSecondary
+    delete(id: TableObject): void {
+        if (id) id._deleted = true;
+    }
+
+    // ── table.clear ────────────────────────────────────────────
+
+    @silentInSecondary
+    clear(...args: any[]): void {
+        let table_id: any;
+        let start_column: any;
+        let start_row: any;
+        let end_column: any;
+        let end_row: any;
+
+        args = spreadNamedArgs(args, TABLE_RANGE_PARAMS);
+        table_id = args[0];
+        start_column = args[1] ?? 0;
+        start_row = args[2] ?? 0;
+        end_column = args[3] ?? start_column;
+        end_row = args[4] ?? start_row;
+
+        const tbl = this._resolve(table_id) as TableObject;
+        if (!tbl || tbl._deleted) return;
+
+        const sc = truncCoord(this._resolve(start_column) ?? 0);
+        const sr = truncCoord(this._resolve(start_row) ?? 0);
+        const ec = truncCoord(this._resolve(end_column) ?? sc);
+        const er = truncCoord(this._resolve(end_row) ?? sr);
+
+        for (let r = sr; r <= er; r++) {
+            for (let c = sc; c <= ec; c++) {
+                tbl.clearCell(c, r);
+            }
+        }
+    }
+
+    // ── table.merge_cells ──────────────────────────────────────
+
+    @silentInSecondary
+    merge_cells(...args: any[]): void {
+        let table_id: any;
+        let start_column: any;
+        let start_row: any;
+        let end_column: any;
+        let end_row: any;
+
+        args = spreadNamedArgs(args, TABLE_RANGE_PARAMS);
+        table_id = args[0];
+        start_column = args[1] ?? 0;
+        start_row = args[2] ?? 0;
+        end_column = args[3] ?? 0;
+        end_row = args[4] ?? 0;
+
+        const tbl = this._resolve(table_id) as TableObject;
+        if (!tbl || tbl._deleted) return;
+
+        const sc = truncCoord(this._resolve(start_column) ?? 0);
+        const sr = truncCoord(this._resolve(start_row) ?? 0);
+        const ec = truncCoord(this._resolve(end_column) ?? 0);
+        const er = truncCoord(this._resolve(end_row) ?? 0);
+
+        // na coordinates: silent no-op (matches the cell-access behavior).
+        if (isNaN(sc) || isNaN(sr) || isNaN(ec) || isNaN(er)) return;
+
+        // Mark all cells in the region as merged, pointing to the start cell. Written to the
+        // cells themselves: a cell already merged by an overlapping region is re-pointed.
+        for (let r = sr; r <= er; r++) {
+            for (let c = sc; c <= ec; c++) {
+                if (r === sr && c === sc) continue; // Skip the origin cell
+                tbl.markMerged(c, r, sc, sr);
+            }
+        }
+
+        tbl.merges.push({ startCol: sc, startRow: sr, endCol: ec, endRow: er });
+    }
+
+    // ── Cell setter methods ────────────────────────────────────
+
+    @silentInSecondary
+    cell_set_text(table_id: any, column: any, row: any, text: any): void {
+        this._setCellProp(table_id, column, row, 'text', text, true);
+    }
+
+    @silentInSecondary
+    cell_set_bgcolor(table_id: any, column: any, row: any, bgcolor: any): void {
+        this._setCellProp(table_id, column, row, 'bgcolor', bgcolor);
+    }
+
+    @silentInSecondary
+    cell_set_text_color(table_id: any, column: any, row: any, text_color: any): void {
+        this._setCellProp(table_id, column, row, 'text_color', text_color);
+    }
+
+    @silentInSecondary
+    cell_set_text_size(table_id: any, column: any, row: any, text_size: any): void {
+        this._setCellProp(table_id, column, row, 'text_size', text_size);
+    }
+
+    @silentInSecondary
+    cell_set_height(table_id: any, column: any, row: any, height: any): void {
+        this._setCellProp(table_id, column, row, 'height', height);
+    }
+
+    @silentInSecondary
+    cell_set_width(table_id: any, column: any, row: any, width: any): void {
+        this._setCellProp(table_id, column, row, 'width', width);
+    }
+
+    @silentInSecondary
+    cell_set_tooltip(table_id: any, column: any, row: any, tooltip: any): void {
+        this._setCellProp(table_id, column, row, 'tooltip', tooltip, true);
+    }
+
+    @silentInSecondary
+    cell_set_text_halign(table_id: any, column: any, row: any, text_halign: any): void {
+        this._setCellProp(table_id, column, row, 'text_halign', text_halign);
+    }
+
+    @silentInSecondary
+    cell_set_text_valign(table_id: any, column: any, row: any, text_valign: any): void {
+        this._setCellProp(table_id, column, row, 'text_valign', text_valign);
+    }
+
+    @silentInSecondary
+    cell_set_text_font_family(table_id: any, column: any, row: any, text_font_family: any): void {
+        this._setCellProp(table_id, column, row, 'text_font_family', text_font_family);
+    }
+
+    @silentInSecondary
+    cell_set_text_formatting(table_id: any, column: any, row: any, text_formatting: any): void {
+        this._setCellProp(table_id, column, row, 'text_formatting', text_formatting);
+    }
+
+    // ── Table setter methods ───────────────────────────────────
+
+    @silentInSecondary
+    set_position(table_id: any, position: any): void {
+        const tbl = this._resolve(table_id) as TableObject;
+        if (!tbl || tbl._deleted) return;
+        tbl.position = this._resolve(position) || tbl.position;
+        this._takePosition(tbl);
+    }
+
+    @silentInSecondary
+    set_bgcolor(table_id: any, bgcolor: any): void {
+        const tbl = this._resolve(table_id) as TableObject;
+        if (!tbl || tbl._deleted) return;
+        tbl.bgcolor = this._resolve(bgcolor) || '';
+    }
+
+    @silentInSecondary
+    set_border_color(table_id: any, border_color: any): void {
+        const tbl = this._resolve(table_id) as TableObject;
+        if (!tbl || tbl._deleted) return;
+        tbl.border_color = this._resolve(border_color) || '';
+    }
+
+    @silentInSecondary
+    set_border_width(table_id: any, border_width: any): void {
+        const tbl = this._resolve(table_id) as TableObject;
+        if (!tbl || tbl._deleted) return;
+        tbl.border_width = this._resolve(border_width) || 0;
+    }
+
+    @silentInSecondary
+    set_frame_color(table_id: any, frame_color: any): void {
+        const tbl = this._resolve(table_id) as TableObject;
+        if (!tbl || tbl._deleted) return;
+        tbl.frame_color = this._resolve(frame_color) || '';
+    }
+
+    @silentInSecondary
+    set_frame_width(table_id: any, frame_width: any): void {
+        const tbl = this._resolve(table_id) as TableObject;
+        if (!tbl || tbl._deleted) return;
+        tbl.frame_width = this._resolve(frame_width) || 0;
+    }
+
+    // ── Property getter ────────────────────────────────────────
+
+    get all(): TableObject[] {
+        return this._tables.filter((t) => !t._deleted);
+    }
+
+    /**
+     * Remove all tables created at or after the given bar index.
+     * Called during streaming rollback.
+     */
+    rollbackFromBar(barIdx: number): void {
+        // Tables are typically created once (var table), not per-bar, so rollback is rare.
+        // But for correctness, filter by creation bar if tracked.
+        this.syncToPlot();
+    }
+
+    // ── Private helpers ────────────────────────────────────────
+
+    private _setCellProp(table_id: any, column: any, row: any, prop: string, value: any, isText: boolean = false): void {
+        const tbl = this._resolve(table_id) as TableObject;
+        if (!tbl || tbl._deleted) return;
+
+        const col = this._resolve(column) ?? 0;
+        const r = this._resolve(row) ?? 0;
+        const resolved = this._resolve(value);
+
+        tbl.setCell(col, r, {
+            [prop]: isText ? this._resolveText(resolved) : resolved,
+        } as any);
+    }
+
+    private _resolveText(val: any): string {
+        if (val === null || val === undefined || val !== val) return '';
+        return String(val);
+    }
+}

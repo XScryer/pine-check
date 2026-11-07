@@ -1,0 +1,4 @@
+{"fn":"alert","params":{"message":true,"freq":true}}
+{"fn":"alertcondition","params":{"condition":true,"title":true,"message":true}}
+{"fn":"array.abs","params":{"id":true}}
+{"fn":"array.avg","params":{"id":true}}
