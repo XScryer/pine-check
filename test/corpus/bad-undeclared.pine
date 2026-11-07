@@ -1,0 +1,3 @@
+//@version=6
+indicator("Undeclared")
+plot(close + myVar)

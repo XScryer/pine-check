@@ -1,0 +1,4 @@
+//@version=6
+indicator("Simple", overlay=true)
+len = input.int(14, "Length")
+plot(ta.sma(close, len), color=color.blue, title="SMA")

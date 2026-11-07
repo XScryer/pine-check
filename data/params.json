@@ -398,10 +398,10 @@
   "params": {
    "top_left": "ok",
    "bottom_right": "ok",
-   "left": "rejected",
-   "top": "rejected",
-   "right": "rejected",
-   "bottom": "rejected",
+   "left": "unverified",
+   "top": "unverified",
+   "right": "unverified",
+   "bottom": "unverified",
    "border_color": "ok",
    "border_width": "ok",
    "border_style": "ok",
@@ -1132,10 +1132,10 @@
   "params": {
    "first_point": "ok",
    "second_point": "ok",
-   "x1": "rejected",
-   "y1": "rejected",
-   "x2": "rejected",
-   "y2": "rejected",
+   "x1": "unverified",
+   "y1": "unverified",
+   "x2": "unverified",
+   "y2": "unverified",
    "xloc": "ok",
    "extend": "ok",
    "color": "ok",
@@ -2810,7 +2810,7 @@
   "params": {
    "source": "ok",
    "anchor": "ok",
-   "stdev_mult": "rejected"
+   "stdev_mult": "ok"
   }
  },
  "ta.vwma": {

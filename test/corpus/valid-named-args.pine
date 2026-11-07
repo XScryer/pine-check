@@ -1,0 +1,8 @@
+//@version=6
+indicator("NamedArgs")
+plot(close,
+     title = "close",
+     color = color.new(color.green, 50),
+     linewidth = 2,
+     style = plot.style_line)
+label.new(bar_index, high, "hi", style=label.style_label_down, textcolor=color.white)

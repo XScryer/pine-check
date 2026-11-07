@@ -1,0 +1,5 @@
+//@version=6
+strategy("Strat", overlay=true, pyramiding=0)
+if close > ta.sma(close, 20)
+    strategy.entry("L", strategy.long)
+plot(close)

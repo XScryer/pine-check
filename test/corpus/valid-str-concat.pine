@@ -1,0 +1,4 @@
+//@version=6
+indicator("StrPlus")
+s = "a" + "b"
+plot(close)

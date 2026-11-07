@@ -1,0 +1,8 @@
+//@version=6
+indicator("Switch")
+trend = close > open ? 1 : close < open ? -1 : 0
+label = switch trend
+    1 => "up"
+    -1 => "down"
+    => "flat"
+plot(trend)

@@ -3,3 +3,12 @@
 {"fn":"ta.vwap","param":"stdev_mult","verdict":"rejected"}
 {"fn":"ticker.kagi","param":"param","verdict":"accepted"}
 {"fn":"ticker.kagi","param":"style","verdict":"accepted"}
+{"fn":"box.new","param":"left","verdict":"context"}
+{"fn":"box.new","param":"top","verdict":"context"}
+{"fn":"box.new","param":"right","verdict":"context"}
+{"fn":"box.new","param":"bottom","verdict":"context"}
+{"fn":"line.new","param":"x1","verdict":"context"}
+{"fn":"line.new","param":"y1","verdict":"context"}
+{"fn":"line.new","param":"x2","verdict":"context"}
+{"fn":"line.new","param":"y2","verdict":"context"}
+{"fn":"ta.vwap","param":"stdev_mult","verdict":"accepted"}

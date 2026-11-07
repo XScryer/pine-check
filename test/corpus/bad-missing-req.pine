@@ -1,0 +1,4 @@
+//@version=6
+indicator("Missing")
+x = ta.sma()
+plot(x)

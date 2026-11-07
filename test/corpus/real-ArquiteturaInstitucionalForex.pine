@@ -1,0 +1,409 @@
+//@version=6
+indicator("Arquitetura Institucional Forex EUR/USD M5", shorttitle="AIL_EURUSD_v2", overlay=true, max_boxes_count=500, max_lines_count=500, max_labels_count=500)
+
+// =============================================================================
+// PARÂMETROS DE ENTRADA CONFIGURÁVEIS COM TOOLTIPS EXPLICATIVOS
+// =============================================================================
+
+// --- Modo de Exibição das Legendas ---
+grp_labels  = "1. Legendas e Identificação das Linhas"
+lbl_mode    = input.string("Sigla", "Modo de Exibição das Legendas", options=["Sigla", "Nome Completo", "Desativado"], group=grp_labels,
+              tooltip="Define a legenda desenhada junto às linhas e zonas:\n• Sigla: Abreviações clássicas (ex: PDH, pdPOC, SUP).\n• Nome Completo: Descrição didática (ex: Máxima Dia Anterior [PDH]).\n• Desativado: Remove o texto, mantendo as linhas limpas.")
+
+// --- Motor de Clusterização e Fractais ---
+grp_cluster = "2. Zonas de Confluência e Fractais"
+pivot_left  = input.int(5, "Barras à Esquerda (Pivô)", minval=1, group=grp_cluster,
+              tooltip="Quantidade de barras anteriores necessárias para definir uma estrutura de topo ou fundo.")
+pivot_right = input.int(5, "Barras à Direita (Confirmação)", minval=1, group=grp_cluster,
+              tooltip="Barras posteriores fechadas para confirmar o pivô. Garante leitura real sem repintura.")
+atr_len     = input.int(14, "Período do ATR", minval=1, group=grp_cluster,
+              tooltip="Período de cálculo da volatilidade média para a tolerância de proximidade.")
+atr_mult    = input.float(0.5, "Multiplicador ATR de Tolerância", minval=0.1, step=0.1, group=grp_cluster,
+              tooltip="Distância máxima relativa ao ATR para fundir dois pivôs na mesma zona em vez de criar linhas separadas.")
+min_touches = input.int(2, "Toques Mínimos para Exibir", minval=1, maxval=10, group=grp_cluster,
+              tooltip="Filtro anti-ruído: a zona cinza/azul só surge no gráfico se tiver pelo menos este número de toques confirmados.")
+
+col_res_bg  = input.color(color.new(color.gray, 82), "Fundo Resistência", group=grp_cluster, tooltip="Cor interna da caixa de resistência.")
+col_res_bd  = input.color(color.new(color.gray, 40), "Borda Resistência", group=grp_cluster, tooltip="Cor do contorno e legenda da resistência.")
+col_sup_bg  = input.color(color.new(color.blue, 88), "Fundo Suporte", group=grp_cluster, tooltip="Cor interna da caixa de suporte.")
+col_sup_bd  = input.color(color.new(color.blue, 50), "Borda Suporte", group=grp_cluster, tooltip="Cor do contorno e legenda do suporte.")
+
+// --- Ponto de Controlo (POC de Volume/Ticks) ---
+grp_poc     = "3. Ponto de Controlo (POC de Volume/Ticks)"
+show_pdpoc  = input.bool(true, "Exibir POC do Dia Anterior (pdPOC)", group=grp_poc,
+              tooltip="Nível com maior concentração de negociações da sessão de ontem. Atua como ímã de valor institucional.")
+show_dpoc   = input.bool(true, "Exibir POC em Desenvolvimento (dPOC)", group=grp_poc,
+              tooltip="Ponto de maior volume em construção da sessão atual em tempo real.")
+col_pdpoc   = input.color(color.yellow, "Cor do pdPOC", group=grp_poc, tooltip="Cor da linha do pdPOC.")
+col_dpoc    = input.color(color.orange, "Cor do dPOC", group=grp_poc, tooltip="Cor da linha do dPOC.")
+w_pdpoc     = input.int(2, "Espessura pdPOC", minval=1, maxval=4, group=grp_poc, tooltip="Largura da linha do pdPOC.")
+w_dpoc      = input.int(1, "Espessura dPOC", minval=1, maxval=4, group=grp_poc, tooltip="Largura da linha do dPOC.")
+poc_bins    = input.int(50, "Resolução do Histograma", minval=20, maxval=100, group=grp_poc,
+              tooltip="Número de faixas verticais de preço para alocar o volume de ticks da sessão.")
+
+// --- Níveis de Referência do Forex ---
+grp_fx      = "4. Níveis Estruturais de Forex"
+show_pdh    = input.bool(true, "Máxima do Dia Anterior (PDH)", group=grp_fx, tooltip="Alvo de liquidez de compra (Buy-Side Liquidity).")
+show_pdl    = input.bool(true, "Mínima do Dia Anterior (PDL)", group=grp_fx, tooltip="Alvo de liquidez de venda (Sell-Side Liquidity).")
+show_pdo    = input.bool(false, "Abertura do Dia Anterior (PDO)", group=grp_fx, tooltip="Preço de abertura da sessão prévia.")
+show_do     = input.bool(true, "Abertura do Dia Atual (DO)", group=grp_fx, tooltip="Bússola de viés diário: acima favorece compras, abaixo vendas.")
+show_pwh    = input.bool(true, "Máxima da Semana Anterior (PWH)", group=grp_fx, tooltip="Resistência semanal macro.")
+show_pwl    = input.bool(true, "Mínima da Semana Anterior (PWL)", group=grp_fx, tooltip="Suporte semanal macro.")
+show_wo     = input.bool(true, "Abertura da Semana Atual (WO)", group=grp_fx, tooltip="Divisor macro de tendência da semana.")
+
+col_pdh_pdl = input.color(color.red, "Cor PDH / PDL", group=grp_fx, tooltip="Cor das linhas de extremos diários.")
+col_pdo     = input.color(color.purple, "Cor PDO", group=grp_fx, tooltip="Cor da abertura do dia anterior.")
+col_do      = input.color(color.blue, "Cor Daily Open", group=grp_fx, tooltip="Cor da abertura da sessão diária atual.")
+col_pwh_pwl = input.color(color.maroon, "Cor PWH / PWL", group=grp_fx, tooltip="Cor das linhas de extremos semanais.")
+col_wo      = input.color(color.teal, "Cor Weekly Open", group=grp_fx, tooltip="Cor da abertura semanal.")
+
+width_fx    = input.int(1, "Espessura das Linhas Forex", minval=1, maxval=4, group=grp_fx, tooltip="Espessura das linhas canónicas.")
+style_fx_s  = input.string("Dashed", "Estilo das Linhas Forex", options=["Solid", "Dashed", "Dotted"], group=grp_fx, tooltip="Estilo do traço: Contínuo, Tracejado ou Pontilhado.")
+
+// --- Painel de Risco (HUD) ---
+grp_hud     = "5. Painel de Volatilidade e Risco (HUD 5M)"
+show_hud    = input.bool(true, "Exibir Painel de Risco HUD", group=grp_hud, tooltip="Ativa ou desativa a tabela com métricas de volatilidade e stops.")
+hud_pos_s   = input.string("Top Right", "Posição do Painel", options=["Top Right", "Bottom Right", "Top Left", "Bottom Left"], group=grp_hud, tooltip="Canto da tela onde o painel será fixado.")
+
+// =============================================================================
+// ESTRUTURAS DE DADOS E FUNÇÕES AUXILIARES
+// =============================================================================
+
+pip_size = syminfo.mintick * (syminfo.type == "forex" or syminfo.type == "cfd" ? 10.0 : 1.0)
+
+get_label_str(string sigla, string nome_completo) =>
+    switch lbl_mode
+        "Sigla"         => sigla
+        "Nome Completo" => nome_completo
+        => ""
+
+get_line_style(string s) =>
+    switch s
+        "Solid"  => line.style_solid
+        "Dashed" => line.style_dashed
+        "Dotted" => line.style_dotted
+        => line.style_dashed
+
+// Tipo de linha estrutural com legenda transparente embutida
+type LevelLine
+    line  l
+    label lbl
+
+method update(LevelLine this, bool show, float price, color c, int w, string l_style, string txt, int start_bar) =>
+    if show and not na(price)
+        line_st = get_line_style(l_style)
+        x1_pos = math.max(0, start_bar)
+        x2_pos = bar_index + 12
+        
+        if na(this.l)
+            this.l := line.new(x1_pos, price, x2_pos, price, color=c, width=w, style=line_st)
+            line.set_color(this.l, c)
+        else
+            line.set_xy1(this.l, x1_pos, price)
+            line.set_xy2(this.l, x2_pos, price)
+            line.set_color(this.l, c)
+            line.set_width(this.l, w)
+            line.set_style(this.l, line_st)
+            
+        if txt != ""
+            if na(this.lbl)
+                this.lbl := label.new(x2_pos, price, txt, color=color.new(color.white, 100), textcolor=c, style=label.style_label_left, size=size.small)
+                label.set_textcolor(this.lbl, c)
+            else
+                label.set_xy(this.lbl, x2_pos, price)
+                label.set_text(this.lbl, txt)
+                label.set_textcolor(this.lbl, c)
+        else if not na(this.lbl)
+            lbl_to_del = this.lbl
+            this.lbl := na
+            label.delete(lbl_to_del)
+    else
+        if not na(this.l)
+            l_to_del = this.l
+            this.l := na
+            line.delete(l_to_del)
+        if not na(this.lbl)
+            lbl_to_del = this.lbl
+            this.lbl := na
+            label.delete(lbl_to_del)
+
+type LiquidityCluster
+    box   box_id
+    float top
+    float bottom
+    int   touches
+    bool  is_res
+    int   start_bar
+    bool  rendered
+
+var array<LiquidityCluster> cluster_repo = array.new<LiquidityCluster>()
+
+// =============================================================================
+// DETEÇÃO DE SESSÕES
+// =============================================================================
+
+is_new_day  = ta.change(time("D")) != 0
+is_new_week = ta.change(time("W")) != 0
+
+var int day_start_bar = 0
+if is_new_day
+    day_start_bar := bar_index
+
+var int week_start_bar = 0
+if is_new_week
+    week_start_bar := bar_index
+
+// =============================================================================
+// MOTOR DE CLUSTERIZAÇÃO ATR COM AUTO-LIMPEZA (BREAK & DELETE)
+// =============================================================================
+
+atr_current = ta.atr(atr_len)
+cluster_tolerance = atr_current * atr_mult
+
+p_high = ta.pivothigh(high, pivot_left, pivot_right)
+p_low  = ta.pivotlow(low, pivot_left, pivot_right)
+
+if not na(p_high)
+    pivot_bar = bar_index - pivot_right
+    pivot_val = p_high
+    bool merged = false
+    
+    if array.size(cluster_repo) > 0
+        for i = 0 to array.size(cluster_repo) - 1
+            LiquidityCluster item = array.get(cluster_repo, i)
+            if item.is_res
+                if (pivot_val >= item.bottom - cluster_tolerance) and (pivot_val <= item.top + cluster_tolerance)
+                    item.top := math.max(item.top, pivot_val)
+                    item.bottom := math.min(item.bottom, pivot_val)
+                    item.touches += 1
+                    merged := true
+                    
+                    string label_txt = get_label_str("RES [" + str.tostring(item.touches) + "x]", "Zona Resistência [" + str.tostring(item.touches) + " toques]")
+                    
+                    if item.touches >= min_touches
+                        if not item.rendered
+                            item.box_id := box.new(left=item.start_bar, top=item.top, right=bar_index + 12, bottom=item.bottom, 
+                                                   border_color=col_res_bd, bgcolor=col_res_bg, border_width=1,
+                                                   text=label_txt, text_color=col_res_bd, text_size=size.small, 
+                                                   text_halign=text.align_right, text_valign=text.align_center)
+                            item.rendered := true
+                        else
+                            box.set_top(item.box_id, item.top)
+                            box.set_bottom(item.box_id, item.bottom)
+                            box.set_right(item.box_id, bar_index + 12)
+                            box.set_text(item.box_id, label_txt)
+                    break
+                    
+    if not merged
+        LiquidityCluster new_res = LiquidityCluster.new(na, pivot_val, pivot_val, 1, true, pivot_bar, false)
+        array.push(cluster_repo, new_res)
+
+if not na(p_low)
+    pivot_bar = bar_index - pivot_right
+    pivot_val = p_low
+    bool merged = false
+    
+    if array.size(cluster_repo) > 0
+        for i = 0 to array.size(cluster_repo) - 1
+            LiquidityCluster item = array.get(cluster_repo, i)
+            if not item.is_res
+                if (pivot_val >= item.bottom - cluster_tolerance) and (pivot_val <= item.top + cluster_tolerance)
+                    item.top := math.max(item.top, pivot_val)
+                    item.bottom := math.min(item.bottom, pivot_val)
+                    item.touches += 1
+                    merged := true
+                    
+                    string label_txt = get_label_str("SUP [" + str.tostring(item.touches) + "x]", "Zona Suporte [" + str.tostring(item.touches) + " toques]")
+                    
+                    if item.touches >= min_touches
+                        if not item.rendered
+                            item.box_id := box.new(left=item.start_bar, top=item.top, right=bar_index + 12, bottom=item.bottom, 
+                                                   border_color=col_sup_bd, bgcolor=col_sup_bg, border_width=1,
+                                                   text=label_txt, text_color=col_sup_bd, text_size=size.small, 
+                                                   text_halign=text.align_right, text_valign=text.align_center)
+                            item.rendered := true
+                        else
+                            box.set_top(item.box_id, item.top)
+                            box.set_bottom(item.box_id, item.bottom)
+                            box.set_right(item.box_id, bar_index + 12)
+                            box.set_text(item.box_id, label_txt)
+                    break
+                    
+    if not merged
+        LiquidityCluster new_sup = LiquidityCluster.new(na, pivot_val, pivot_val, 1, false, pivot_bar, false)
+        array.push(cluster_repo, new_sup)
+
+// Limpeza de zonas rompidas pelo corpo da vela (Break & Delete)
+if array.size(cluster_repo) > 0
+    for i = array.size(cluster_repo) - 1 to 0
+        LiquidityCluster item = array.get(cluster_repo, i)
+        bool destroyed = false
+        
+        if item.is_res and close > item.top
+            destroyed := true
+        else if not item.is_res and close < item.bottom
+            destroyed := true
+            
+        if destroyed
+            if item.rendered and not na(item.box_id)
+                box.delete(item.box_id)
+            array.remove(cluster_repo, i)
+        else
+            if item.rendered and not na(item.box_id)
+                box.set_right(item.box_id, bar_index + 12)
+
+// =============================================================================
+// POC DE SESSÃO BASEADO EM VOLUME DE TICKS
+// =============================================================================
+
+var array<float> daily_bar_prices = array.new_float()
+var array<float> daily_bar_vols   = array.new_float()
+
+var LevelLine lvl_pdpoc = LevelLine.new(na, na)
+var LevelLine lvl_dpoc  = LevelLine.new(na, na)
+var float val_pdpoc = na
+var float val_dpoc  = na
+
+if is_new_day
+    int total_bars = array.size(daily_bar_prices)
+    if total_bars > 0
+        float min_p = array.min(daily_bar_prices)
+        float max_p = array.max(daily_bar_prices)
+        float span  = max_p - min_p
+        
+        if span > 0
+            float bin_size = span / poc_bins
+            array<float> bins_accum = array.new_float(poc_bins, 0.0)
+            
+            for b = 0 to total_bars - 1
+                float p_bar = array.get(daily_bar_prices, b)
+                float v_bar = array.get(daily_bar_vols, b)
+                int bin_idx = math.min(poc_bins - 1, math.max(0, int(math.floor((p_bar - min_p) / bin_size))))
+                array.set(bins_accum, bin_idx, array.get(bins_accum, bin_idx) + v_bar)
+                
+            float highest_bin_vol = array.max(bins_accum)
+            int best_bin_idx = array.indexof(bins_accum, highest_bin_vol)
+            val_pdpoc := min_p + (best_bin_idx + 0.5) * bin_size
+                
+        array.clear(daily_bar_prices)
+        array.clear(daily_bar_vols)
+
+array.push(daily_bar_prices, hl2)
+array.push(daily_bar_vols, nz(volume, 1.0))
+
+// Cálculo do dPOC em tempo real na barra mais recente
+if show_dpoc and barstate.islast and array.size(daily_bar_prices) > 2
+    float d_min_p = array.min(daily_bar_prices)
+    float d_max_p = array.max(daily_bar_prices)
+    float d_span  = d_max_p - d_min_p
+    
+    if d_span > 0
+        float d_bin_size = d_span / poc_bins
+        array<float> d_bins = array.new_float(poc_bins, 0.0)
+        
+        for k = 0 to array.size(daily_bar_prices) - 1
+            float pk = array.get(daily_bar_prices, k)
+            float vk = array.get(daily_bar_vols, k)
+            int target_idx = math.min(poc_bins - 1, math.max(0, int(math.floor((pk - d_min_p) / d_bin_size))))
+            array.set(d_bins, target_idx, array.get(d_bins, target_idx) + vk)
+            
+        float d_max_v = array.max(d_bins)
+        int d_idx = array.indexof(d_bins, d_max_v)
+        val_dpoc := d_min_p + (d_idx + 0.5) * d_bin_size
+
+lvl_pdpoc.update(show_pdpoc, val_pdpoc, col_pdpoc, w_pdpoc, "Solid",  get_label_str("pdPOC", "POC Dia Anterior (pdPOC)"), day_start_bar)
+lvl_dpoc.update(show_dpoc,   val_dpoc,  col_dpoc,  w_dpoc,  "Dashed", get_label_str("dPOC",  "POC Atual (dPOC)"),          day_start_bar)
+
+// =============================================================================
+// NÍVEIS CANÓNICOS DE FOREX
+// =============================================================================
+
+[d_high_prev, d_low_prev, d_open_prev] = request.security(syminfo.tickerid, "D", [high[1], low[1], open[1]], lookahead=barmerge.lookahead_on)
+[w_high_prev, w_low_prev]              = request.security(syminfo.tickerid, "W", [high[1], low[1]],           lookahead=barmerge.lookahead_on)
+
+var float d_open_curr = na
+if is_new_day
+    d_open_curr := open
+
+var float w_open_curr = na
+if is_new_week
+    w_open_curr := open
+
+var LevelLine lvl_pdh = LevelLine.new(na, na)
+var LevelLine lvl_pdl = LevelLine.new(na, na)
+var LevelLine lvl_pdo = LevelLine.new(na, na)
+var LevelLine lvl_do  = LevelLine.new(na, na)
+var LevelLine lvl_pwh = LevelLine.new(na, na)
+var LevelLine lvl_pwl = LevelLine.new(na, na)
+var LevelLine lvl_wo  = LevelLine.new(na, na)
+
+lvl_pdh.update(show_pdh, d_high_prev, col_pdh_pdl, width_fx, style_fx_s, get_label_str("PDH", "Máxima Dia Anterior (PDH)"), day_start_bar)
+lvl_pdl.update(show_pdl, d_low_prev,  col_pdh_pdl, width_fx, style_fx_s, get_label_str("PDL", "Mínima Dia Anterior (PDL)"), day_start_bar)
+lvl_pdo.update(show_pdo, d_open_prev, col_pdo,     width_fx, style_fx_s, get_label_str("PDO", "Abertura Dia Anterior (PDO)"), day_start_bar)
+lvl_do.update(show_do,   d_open_curr, col_do,      width_fx, style_fx_s, get_label_str("DO",  "Abertura do Dia (DO)"),         day_start_bar)
+lvl_pwh.update(show_pwh, w_high_prev, col_pwh_pwl, width_fx, style_fx_s, get_label_str("PWH", "Máxima da Semana (PWH)"),      week_start_bar)
+lvl_pwl.update(show_pwl, w_low_prev,  col_pwh_pwl, width_fx, style_fx_s, get_label_str("PWL", "Mínima da Semana (PWL)"),      week_start_bar)
+lvl_wo.update(show_wo,   w_open_curr, col_wo,      width_fx, style_fx_s, get_label_str("WO",  "Abertura da Semana (WO)"),      week_start_bar)
+
+// =============================================================================
+// HUD EXCLUSIVO DE RISCO E VOLATILIDADE PARA 5 MINUTOS
+// =============================================================================
+
+atr_5m = ta.atr(14)
+atr_1d = request.security(syminfo.tickerid, "D", ta.atr(14), lookahead=barmerge.lookahead_on)
+
+pips_5m = atr_5m / pip_size
+pips_1d = atr_1d / pip_size
+
+var float d_high_curr = na
+var float d_low_curr  = na
+if is_new_day
+    d_high_curr := high
+    d_low_curr  := low
+else
+    d_high_curr := math.max(nz(d_high_curr, high), high)
+    d_low_curr  := math.min(nz(d_low_curr, low), low)
+
+d_range_pips = (nz(d_high_curr, high) - nz(d_low_curr, low)) / pip_size
+daily_pct    = pips_1d > 0 ? (d_range_pips / pips_1d) * 100.0 : 0.0
+
+get_table_pos(string p) =>
+    switch p
+        "Top Right"    => position.top_right
+        "Bottom Right" => position.bottom_right
+        "Top Left"     => position.top_left
+        "Bottom Left"  => position.bottom_left
+        => position.top_right
+
+var table hud = table.new(get_table_pos(hud_pos_s), 3, 6, bgcolor=color.new(#131722, 10), border_color=color.new(#363c4e, 30), border_width=1)
+
+if barstate.islast
+    if show_hud
+        table.cell(hud, 0, 0, "PARÂMETRO (EUR/USD M5)", text_color=color.white, text_size=size.small, bgcolor=color.new(#2a2e39, 0))
+        table.cell(hud, 1, 0, "MEDIDA",                 text_color=color.white, text_size=size.small, bgcolor=color.new(#2a2e39, 0))
+        table.cell(hud, 2, 0, "ORIENTAÇÃO DE RISCO",     text_color=color.white, text_size=size.small, bgcolor=color.new(#2a2e39, 0))
+        
+        table.cell(hud, 0, 1, "Volatilidade ATR (M5)", text_color=color.silver, text_size=size.small)
+        table.cell(hud, 1, 1, str.tostring(pips_5m, "#.1") + " pips", text_color=color.yellow, text_size=size.small)
+        table.cell(hud, 2, 1, "Oscilação média por vela", text_color=color.gray, text_size=size.small)
+        
+        table.cell(hud, 0, 2, "Stop Recomendado (1.5x)", text_color=color.silver, text_size=size.small)
+        table.cell(hud, 1, 2, str.tostring(pips_5m * 1.5, "#.1") + " pips", text_color=color.white, text_size=size.small)
+        table.cell(hud, 2, 2, "Stop técnico anti-ruído", text_color=color.gray, text_size=size.small)
+
+        table.cell(hud, 0, 3, "Stop Estrutural (2.0x)", text_color=color.silver, text_size=size.small)
+        table.cell(hud, 1, 3, str.tostring(pips_5m * 2.0, "#.1") + " pips", text_color=color.white, text_size=size.small)
+        table.cell(hud, 2, 3, "Stop folgado para reversão", text_color=color.gray, text_size=size.small)
+
+        color col_range = daily_pct >= 90.0 ? color.red : (daily_pct >= 70.0 ? color.orange : color.green)
+        string txt_range = daily_pct >= 90.0 ? "Exaustão (Evitar Rompimento)" : (daily_pct >= 70.0 ? "Expansão Avançada" : "Range Aberto")
+        table.cell(hud, 0, 4, "Range Diário Usado", text_color=color.silver, text_size=size.small)
+        table.cell(hud, 1, 4, str.tostring(d_range_pips, "#.0") + " pips (" + str.tostring(daily_pct, "#.0") + "%)", text_color=col_range, text_size=size.small)
+        table.cell(hud, 2, 4, txt_range, text_color=col_range, text_size=size.small)
+
+        float cost_1_lot = pips_5m * 1.5 * 10.0
+        table.cell(hud, 0, 5, "Custo do Stop (1.0 Lote)", text_color=color.white, text_size=size.small, bgcolor=color.new(#1e222d, 0))
+        table.cell(hud, 1, 5, "$" + str.tostring(cost_1_lot, "#.0") + " USD", text_color=color.aqua, text_size=size.small, bgcolor=color.new(#1e222d, 0))
+        table.cell(hud, 2, 5, "$10/pip (0.10L = $" + str.tostring(cost_1_lot * 0.1, "#.1") + ")", text_color=color.silver, text_size=size.small, bgcolor=color.new(#1e222d, 0))
+    else
+        table.clear(hud, 0, 0, 2, 5)

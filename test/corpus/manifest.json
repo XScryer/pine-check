@@ -1,0 +1,174 @@
+{
+  "description": "Differential corpus: each .pine case has an oracle verdict (oracle-baseline.json, queried live from TradingView's pine-facade) and a local expectation. 'miss' = known gap where the oracle rejects but pine-check currently does not — tracked, not failed.",
+  "cases": {
+    "bad-indent.pine": {
+      "expect": "error",
+      "engines": [
+        "npm",
+        "pinets"
+      ],
+      "note": "plot() inside an if-block"
+    },
+    "bad-input-const.pine": {
+      "expect": "error",
+      "engines": [
+        "pinets"
+      ],
+      "note": "input.int() arg is a loop variable — inputs must be const (oracle CE10123)"
+    },
+    "bad-line-new-mixed.pine": {
+      "expect": "miss",
+      "note": "mixes point-form positionals with coord names x1/y1 — oracle CE10120; named-arg validity is overload-relative, we don't flag"
+    },
+    "bad-missing-req.pine": {
+      "expect": "error",
+      "engines": [
+        "npm"
+      ],
+      "note": "ta.sma() with no args"
+    },
+    "bad-param-typo.pine": {
+      "expect": "error",
+      "engines": [
+        "npm"
+      ],
+      "note": "plot(colur=) — npm's curated plot table catches it; oracle CE10120"
+    },
+    "bad-timezone.pine": {
+      "expect": "error",
+      "engines": [
+        "oracle-params"
+      ],
+      "note": "time(timezone=) — oracle-verified rejection (CE10120)"
+    },
+    "bad-token.pine": {
+      "expect": "error",
+      "engines": [
+        "pinets"
+      ],
+      "note": "@@@ invalid character"
+    },
+    "bad-unclosed.pine": {
+      "expect": "error",
+      "engines": [
+        "npm",
+        "pinets"
+      ],
+      "note": "unclosed paren — both engines fire"
+    },
+    "bad-undeclared.pine": {
+      "expect": "error",
+      "engines": [
+        "pinets"
+      ],
+      "note": "plot(close + myVar) — undeclared identifier (oracle CE10272)"
+    },
+    "bad-use-undeclared-ns.pine": {
+      "expect": "error",
+      "engines": [
+        "npm",
+        "pinets"
+      ],
+      "note": "ssss.adas() — undefined namespace + undeclared id"
+    },
+    "bad-varargs-named.pine": {
+      "expect": "error",
+      "engines": [
+        "oracle-params"
+      ],
+      "note": "math.max(number0=) — varargs fns take no keyword args (oracle CE10119)"
+    },
+    "bad-vwap-missing-anchor.pine": {
+      "expect": "miss",
+      "note": "ta.vwap needs anchor in v6 (oracle CE10165); npm's table doesn't know — arity gap"
+    },
+    "valid-box-coords.pine": {
+      "expect": "clean",
+      "note": "box.new(left,top,right,bottom=) coord overload — legal in v6"
+    },
+    "valid-collections.pine": {
+      "expect": "clean",
+      "note": "array/map push+put"
+    },
+    "valid-defval-options.pine": {
+      "expect": "clean",
+      "note": "defval outside options — TV accepts; PineTS only infos it"
+    },
+    "valid-many-plots.pine": {
+      "expect": "clean",
+      "note": "65 plots — v6 has no 64-plot limit (300 verified clean on oracle); npm S5 downgraded to info"
+    },
+    "valid-multiline.pine": {
+      "expect": "clean",
+      "note": "wrapped call + triple-quoted string with parens/="
+    },
+    "valid-named-args.pine": {
+      "expect": "clean",
+      "note": "plot/label.new with named args"
+    },
+    "valid-request-reassign.pine": {
+      "expect": "clean",
+      "note": ":= reassignment + conditional request.security — legal v6"
+    },
+    "valid-request.pine": {
+      "expect": "clean",
+      "note": "request.security HTF"
+    },
+    "valid-simple.pine": {
+      "expect": "clean",
+      "note": "minimal indicator"
+    },
+    "valid-str-concat.pine": {
+      "expect": "clean",
+      "note": "\"a\" + \"b\" string concatenation — legal"
+    },
+    "valid-strategy.pine": {
+      "expect": "clean",
+      "note": "strategy() declaration"
+    },
+    "valid-switch.pine": {
+      "expect": "clean",
+      "note": "switch statement + ternary"
+    },
+    "valid-tuple.pine": {
+      "expect": "clean",
+      "note": "tuple destructure from request.security"
+    },
+    "valid-udt.pine": {
+      "expect": "clean",
+      "note": "UDT type + method"
+    },
+    "valid-v5-line-new.pine": {
+      "expect": "clean",
+      "note": "//@version=5 line.new(x1=) — legal in v5; oracle-params gate skips non-v6"
+    },
+    "valid-v5.pine": {
+      "expect": "clean",
+      "note": "//@version=5 basic — npm warns 'use v6' but no error"
+    },
+    "valid-varargs.pine": {
+      "expect": "clean",
+      "note": "math.max/min + str.format positional varargs"
+    },
+    "real-ArquiteturaInstitucionalForex.pine": {
+      "expect": "clean",
+      "note": "real-world v6 script (408 lines)"
+    },
+    "real-FlowVPA.pine": {
+      "expect": "clean",
+      "note": "real-world v6 script (515 lines)"
+    },
+    "real-FlowVPA_VolumeDelta_Suite.pine": {
+      "expect": "clean",
+      "note": "real-world v6 script (676 lines)"
+    },
+    "real-VolumeDelta.pine": {
+      "expect": "clean",
+      "note": "real-world v6 script, spaced version marker (1109 lines)"
+    },
+    "real-cRSITripleDivergenceMTFConfluenceEngine.pine": {
+      "expect": "clean",
+      "note": "real-world v6 script (253 lines)"
+    }
+  }
+}

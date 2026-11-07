@@ -1,0 +1,6 @@
+//@version=6
+indicator("ReqCond")
+v = 0.0
+if barstate.islast
+    v := request.security(syminfo.tickerid, "D", close)
+plot(v)

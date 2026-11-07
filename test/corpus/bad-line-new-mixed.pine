@@ -1,0 +1,4 @@
+//@version=6
+indicator("LineNew")
+l = line.new(chart.point.now(high), chart.point.now(low), x1=1, y1=2, color=color.red)
+plot(close)
