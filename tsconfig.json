@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": false,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "@pinets/index": ["vendor/pinets/src/index.ts"],
+      "@pinets/transpiler/*": ["vendor/pinets/src/transpiler/*"],
+      "@pinets/namespaces/*": ["vendor/pinets/src/namespaces/*"],
+      "@pinets/marketData/*": ["vendor/pinets/src/marketData/*"]
+    }
+  },
+  "include": ["src/**/*.ts", "test/**/*.ts", "tools/**/*.ts"]
+}
