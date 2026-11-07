@@ -1,0 +1,21 @@
+{
+  "name": "pine-check",
+  "version": "0.1.0",
+  "description": "Local Pine Script v5/v6 validator — syntax, undeclared identifiers, parameter names, semantic checks — calibrated against TradingView's own compiler.",
+  "type": "module",
+  "bin": {
+    "pine-check": "./bin/pine-check.mjs"
+  },
+  "scripts": {
+    "check": "node bin/pine-check.mjs",
+    "test": "node test/run.mjs"
+  },
+  "license": "AGPL-3.0-only",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "pinets": "0.13.1",
+    "pinescript-v6-validator": "0.4.3"
+  }
+}
