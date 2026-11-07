@@ -36,6 +36,18 @@ interface Args {
   stdin: boolean;
 }
 
+const VALID_ENGINES: Engine[] = ['npm', 'oracle-params', 'pinets'];
+
+// An unrecognized engine must never pass silently: filtering all engines out
+// would report "clean" on a broken file. Reject with usage (exit 2).
+function parseEngines(v: string): Engine[] {
+  const list = v.split(',').map(s => s.trim()).filter(Boolean);
+  const bad = list.filter(e => !(VALID_ENGINES as string[]).includes(e));
+  if (!list.length || bad.length)
+    throw new Error(`unknown engine '${bad[0] ?? v}' (valid: ${VALID_ENGINES.join(', ')})`);
+  return list as Engine[];
+}
+
 function parseArgs(argv: string[]): Args | { help: true } {
   const a: Args = { files: [], remote: false, json: false, quiet: false, stdin: false };
   for (let i = 0; i < argv.length; i++) {
@@ -46,10 +58,9 @@ function parseArgs(argv: string[]): Args | { help: true } {
     else if (t === '--quiet') a.quiet = true;
     else if (t === '--stdin') a.stdin = true;
     else if (t === '--engine') {
-      const v = argv[++i] ?? '';
-      a.engines = v.split(',').map(s => s.trim()) as Engine[];
+      a.engines = parseEngines(argv[++i] ?? '');
     } else if (t.startsWith('--engine=')) {
-      a.engines = t.slice(9).split(',').map(s => s.trim()) as Engine[];
+      a.engines = parseEngines(t.slice(9));
     } else if (t.startsWith('--')) {
       throw new Error(`unknown option ${t}`);
     } else {
