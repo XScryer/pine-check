@@ -1,9 +1,14 @@
-# pine-check
+# Pine Check
 
 Local validator for **Pine Script v6** — syntax, undeclared identifiers,
 parameter names, and semantic lints — calibrated against **TradingView's own
 compiler** (its `pine-facade` translator, the same endpoint the web editor
 uses). No account, no API key, runs fully offline by default.
+
+[![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL--3.0-blue.svg)](LICENSE)
+[![Node](https://img.shields.io/badge/node-%3E%3D20-brightgreen.svg)](package.json)
+[![Engines](https://img.shields.io/badge/engines-3%20merged-orange.svg)](#what-it-catches)
+[![Oracle](https://img.shields.io/badge/oracle-TradingView%20facade-red.svg)](#the-oracle-table-dataparamsjson)
 
 ```bash
 npm install
